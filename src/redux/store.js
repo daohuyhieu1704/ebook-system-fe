@@ -1,17 +1,14 @@
-// init store for redux toolkit
-import { configureStore } from "@reduxjs/toolkit";
-import layoutReducer from "../layout/LayoutSlice";
-import loginReducer from "../features/login/LoginSlice";
-import DrawReducer from "../features/draw/DrawSlice";
-
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import appReducer from '../../src/redux/AppSlice'
+import controlReducer from '../components/control/app-controlSlice'
+import canvasContainerReducer from '../components/canvas/canvas-containerSlice'
 export default configureStore({
   reducer: {
-    layout: layoutReducer,
-    login: loginReducer,
-    draw: DrawReducer,
+    app: appReducer,
+    control: controlReducer,
+    canvasContainer: canvasContainerReducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
-});
+  middleware: getDefaultMiddleware({
+    serializableCheck: false
+  })
+})

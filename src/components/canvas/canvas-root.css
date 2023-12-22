@@ -1,0 +1,20 @@
+.div-document {
+  display: flex;
+  flex-direction: column;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  /* height: calc(100% - 130px);
+  overflow: auto; */
+  background: #f1f3f5;
+  padding-top: 145px;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+}
+
+.pdf-draw-container {
+  position: relative;
+  min-width: 400px;
+}
