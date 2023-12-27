@@ -18,7 +18,6 @@ import {
   setPDF,
   setScale,
 } from "../src/redux/AppSlice";
-import SpinnerLoading from "./components/SpinnerLoading/SpinnerLoading";
 import { selectTypeDraw } from "./components/control/app-controlSlice";
 import Sider from "antd/lib/layout/Sider";
 import { Col, Menu, Row } from "antd";
@@ -29,8 +28,8 @@ import {
   MailOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
+import CanvasPage from "./page/CanvasPage";
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-const defaultUrl = "./Eloquent_JavaScript.pdf";
 // AppConstant.CANVAS_SCALE =
 //   localStorage.getItem("canvas-scale") || AppConstant.CANVAS_SCALE;
 
@@ -73,44 +72,19 @@ const App = () => {
       type,
     };
   }
-  const items = [
-    getItem("Option 1", "1", <PieChartOutlined />),
-    getItem("Option 2", "2", <DesktopOutlined />),
-    getItem("Option 3", "3", <ContainerOutlined />),
-    getItem("Navigation One", "sub1", <MailOutlined />, [
-      getItem("Option 5", "5"),
-      getItem("Option 6", "6"),
-      getItem("Option 7", "7"),
-      getItem("Option 8", "8"),
-    ]),
-    getItem("Navigation Two", "sub2", <AppstoreOutlined />, [
-      getItem("Option 9", "9"),
-      getItem("Option 10", "10"),
-      getItem("Submenu", "sub3", null, [
-        getItem("Option 11", "11"),
-        getItem("Option 12", "12"),
-      ]),
-    ]),
-  ];
 
   return (
-    <Row>
+    <Row gutter={[16, 16]}>
+      {/* Sidebar - để navigate đến những trang web khác */}
       <Col span={4}>
         <Menu>
-          <Menu.Item>item 1</Menu.Item>
-          <Menu.Item>item 2</Menu.Item>
-          <Menu.SubMenu title="sub menu">
-            <Menu.Item>item 3</Menu.Item>
-          </Menu.SubMenu>
+          <Menu.Item>Canvas</Menu.Item>
+          <Menu.Item>User</Menu.Item>
+          <Menu.Item>Function</Menu.Item>
         </Menu>
       </Col>
       <Col span={20}>
-        <AppControl />
-        {!loadedSrc ? (
-          <SpinnerLoading size={20} />
-        ) : (
-          pdf != null && <CanvasRoot />
-        )}
+        <CanvasPage />
       </Col>
     </Row>
   );
