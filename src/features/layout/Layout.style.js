@@ -111,10 +111,8 @@ export const LogoText = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0;
   font-weight: 700;
   font-size: ${themeGet("sizes.Standard")};
-  margin-left: 10px;
   font-size: 1.3rem;
 `;
 export const LogoPara = styled.p`

@@ -31,6 +31,7 @@ export const AdminLayout = ({ children }) => {
   const collapsed = useSelector(selectCollapsed);
   const selectedKey = useSelector(selectSelectedKey);
   const userInfo = useSelector(selectUserInfo);
+  const [listRouter, setListRouter] = React.useState([]);
   const dispatch = useDispatch();
   const logout = useLogout();
 
@@ -41,21 +42,31 @@ export const AdminLayout = ({ children }) => {
   }, [location]);
 
   const createMenuItem = (item) => {
-    return {
-      key: item.path,
-      icon: item.icon,
-      label: <Link to={item.path}>{`${item.name}`}</Link>,
-    };
+    console.log("item", item);
+    return;
   };
 
-  const listRouter = useMemo(
-    () =>
-      MANAGEMENT_MENU.filter((item) =>
-        item.permissions.includes(userInfo.role)
-      ).map(createMenuItem),
-    [MANAGEMENT_MENU, userInfo.role]
-  );
+  // const listRouter = useMemo(
+  //   () =>
+  //     MANAGEMENT_MENU.filter(
+  //       (item) => true
+  //       // item.permissions.includes(userInfo.role)
+  //     ).map(createMenuItem),
+  //   [MANAGEMENT_MENU, userInfo.role]
+  // );
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      logout();
+    }
+    setListRouter(
+      MANAGEMENT_MENU.map((item) => ({
+        key: item.path,
+        icon: item.icon,
+        label: item.name,
+      }))
+    );
+  }, []);
   return ignoreAppLayout.includes(location.pathname) ? (
     <LayoutWrapper>{children}</LayoutWrapper>
   ) : (
@@ -85,7 +96,7 @@ export const AdminLayout = ({ children }) => {
           )}
 
           <Menu
-            theme="dark"
+            theme="light"
             mode="vertical"
             defaultSelectedKeys={[selectedKey]}
             disabledOverflow={true}
@@ -95,7 +106,6 @@ export const AdminLayout = ({ children }) => {
               key !== "logout" && dispatch(changeSelectedKey(key));
             }}
             defaultOpenKeys={["userpage", "adminpage"]}
-            items={listRouter}
             style={{}}
           />
         </CustomSider>

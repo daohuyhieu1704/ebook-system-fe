@@ -44,6 +44,35 @@ import { theme } from "./theme/theme";
 // //   localStorage.getItem("canvas-scale") || AppConstant.CANVAS_SCALE;
 
 const App = () => {
+  // // const [pdf, setPDF] = useState(null);
+  // const srcState = useSelector(selectSrc);
+  // const src =
+  //   localStorage.getItem("urls") !== null
+  //     ? localStorage.getItem("urls")
+  //     : srcState;
+  // // ? localStorage.getItem('urls')
+  // // : srcState
+
+  // const pdf = useSelector(selectPdf);
+  // const scale = useSelector(selectScale);
+  // const numPages = useSelector(selectNumPages);
+  // const loadedSrc = useSelector(selectLoadedSrc);
+  // const typeDraw = useSelector(selectTypeDraw);
+  // const dispatch = useDispatch();
+  // console.log("src", localStorage);
+  // useEffect(() => {
+  //   const fetchPdf = async () => {
+  //     const loadingTask = pdfjs.getDocument(src);
+  //     console.log("loadingTask", src);
+  //     const pdfDoc = await loadingTask.promise;
+  //     dispatch(setPDF(pdfDoc));
+  //     dispatch(setNumPages(pdfDoc._pdfInfo.numPages));
+  //     dispatch(setLoaded(true));
+  //   };
+
+  //   fetchPdf();
+  // }, [dispatch, src, srcState]);
+
   return (
     <BrowserRouter>
       <Suspense

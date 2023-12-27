@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.16.0",
     "aws-sdk": "^2.933.0",
+    "axios": "^1.6.3",
     "downloadjs": "^1.4.7",
     "panel": "^5.9.0",
     "pdf-lib": "^1.16.0",
