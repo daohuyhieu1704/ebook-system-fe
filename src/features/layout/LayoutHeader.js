@@ -22,11 +22,13 @@ import {
 } from "./LayoutHeader.style";
 import {
   Avatar,
+  Col,
   DatePicker,
   Drawer,
   Dropdown,
   Menu,
   Modal,
+  Row,
   Tooltip,
   Typography,
 } from "antd";
@@ -45,6 +47,7 @@ import { PATH } from "../../constants/common";
 import moment from "moment";
 import FuncForm from "../Func/FuncForm";
 import { useDispatch, useSelector } from "react-redux";
+import AppControl from "../../components/control/app-control";
 const { confirm } = Modal;
 const { Text, Title } = Typography;
 
@@ -110,39 +113,32 @@ export const LayoutHeader = () => {
 
   return (
     <CustomHeader style={!isLoggedIn ? { display: "none" } : {}}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-          onClick: toggle,
-        })}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        {/* <Dropdown overlay={menuNoti} trigger={['click']}>
-            <Button shape="circle" type="link">
-              <BellOutlined />
-            </Button>
-          </Dropdown> */}
-        <HeaderConfirm>
-          <Dropdown overlay={menu} trigger={["click"]}>
-            <UserInfo>
-              <DisplayName>{userInfo.fullname}</DisplayName>
-              <Tooltip placement="bottom" title="Cài đặt">
-                <Avatar
-                  size="default"
-                  icon={<MenuOutlined />}
-                  style={{ color: theme.colors.primary }}
-                />
-              </Tooltip>
-            </UserInfo>
-          </Dropdown>
-        </HeaderConfirm>
-      </div>
-      <Drawer
+      <Row align="middle" justify="space-between">
+        <Col span={1}>
+          {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+            onClick: toggle,
+          })}
+        </Col>
+        <Col span={22}>
+          <AppControl />
+        </Col>
+        <Col span={1}>
+          <Row align="middle" justify="center">
+            <Dropdown overlay={menu} trigger={["click"]}>
+              <UserInfo>
+                <Tooltip placement="bottom" title="Cài đặt">
+                  <Avatar
+                    size="small"
+                    icon={<MenuOutlined />}
+                    style={{ color: theme.colors.primary }}
+                  />
+                </Tooltip>
+              </UserInfo>
+            </Dropdown>
+          </Row>
+        </Col>
+      </Row>
+      {/* <Drawer
         title={forms[location?.pathname]?.formTitle}
         width={500}
         maskClosable={false}
@@ -179,7 +175,7 @@ export const LayoutHeader = () => {
         }}
       >
         {forms[location?.pathname]?.formRender}
-      </Drawer>
+      </Drawer> */}
     </CustomHeader>
   );
 };

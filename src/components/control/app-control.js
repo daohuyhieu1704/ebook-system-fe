@@ -436,194 +436,174 @@ const AppControl = () => {
   return (
     <>
       {loaded ? (
-        <>
-          <div className="menu-bar">
-            <div className="control-bar">
-              <div className="control-bar_up">
-                <div className="control-bar-up-right">
-                  <SelectControl
-                    style={{ width: 120 }}
-                    onChange={handleChange}
-                    value={Math.round(scale * 100) + "%"}
-                  >
-                    <Option value={50}>50%</Option>
-                    <Option value={100}>100%</Option>
-                    <Option value={150}>150%</Option>
-                    <Option value={200}>200%</Option>
-                  </SelectControl>
-                  <ButtonControl onClick={zoomIn}>
-                    <AiOutlineZoomIn />
-                  </ButtonControl>
-                  <ButtonControl onClick={zoomOut}>
-                    <AiOutlineZoomOut />
-                  </ButtonControl>
-                  <UploadPdf {...uploadProps}>
-                    <ButtonUpload icon={<UploadOutlined />}>
-                      Click to Upload
-                    </ButtonUpload>
-                  </UploadPdf>
-                </div>
+        <Row gutter={[8, 8]}>
+          <Col>
+            <SelectControl
+              onChange={handleChange}
+              value={Math.round(scale * 100) + "%"}
+            >
+              <Option value={50}>50%</Option>
+              <Option value={100}>100%</Option>
+              <Option value={150}>150%</Option>
+              <Option value={200}>200%</Option>
+            </SelectControl>
+            <ButtonControl onClick={zoomIn}>
+              <AiOutlineZoomIn />
+            </ButtonControl>
+            <ButtonControl onClick={zoomOut}>
+              <AiOutlineZoomOut />
+            </ButtonControl>
 
-                <div className="control-bar-up-left">
-                  <PagePerToTal>
-                    <p style={transformP}>
-                      {"Page: " + numPageCurrent + "/" + numPages}
-                    </p>
-                  </PagePerToTal>
-                  <ButtonControl>
-                    <AiOutlineCompress onClick={zoomFullScreen} />
-                  </ButtonControl>
-                  <ButtonControl onClick={saveCanvas}>
-                    <AiOutlineSave />
-                  </ButtonControl>
-                  <ButtonControl onClick={download}>
-                    <AiOutlineDownload />
-                  </ButtonControl>
-                </div>
-              </div>
-              <div className="control-bar_down">
-                <Radio.Group
-                  onChange={handleChangeDrawType}
-                  defaultValue="drawFree"
-                >
-                  <RadioButtonControl value="drawFree">
-                    <IoBrushOutline />
-                  </RadioButtonControl>
-                  <RadioButtonControl value="drawRect">
-                    <IoSquareOutline />
-                  </RadioButtonControl>
-                  <RadioButtonControl value="drawCircle">
-                    <RiCheckboxBlankCircleLine />
-                  </RadioButtonControl>
-                  <RadioButtonControl value="drawTri">
-                    <IoTriangleOutline style={{ fontWeight: "bold" }} />
-                  </RadioButtonControl>
-                  <RadioButtonControl value="drawLine">
-                    <BsSlash style={{ fontWeight: "bold" }} />
-                  </RadioButtonControl>
-                  <RadioButtonControl value="eraser">
-                    <RiEraserLine style={{ fontWeight: "bold" }} />
-                  </RadioButtonControl>
-                  <RadioButtonControl onClick={handleTextMode} value="drawText">
-                    <AiOutlineFontSize style={{ fontWeight: "bold" }} />
-                  </RadioButtonControl>
-                </Radio.Group>
-
-                <ButtonPicker
-                  onClick={showModal}
-                  style={{
-                    color: `rgba(${colorR},${colorG},${colorB},${opacity})`,
-                    background: `rgba(${colorR},${colorG},${colorB},${opacity})`,
-                  }}
-                >
-                  <span></span>
-                </ButtonPicker>
-                <ModalControl
-                  title="SelectColor"
-                  visible={isModalVisible}
-                  onOk={handleOk}
-                  onCancel={handleCancel}
-                  zIndex={9999}
-                >
-                  {/* <SketchPicker
-                    value={`rgba(${colorR},${colorG},${colorB},${opacity})`}
-                    onChange={(clr) => handleChangeColor(clr)}
-                  ></SketchPicker> */}
-                  <CirclePicker
-                    colors={[
-                      "#f44336",
-                      "#e91e63",
-                      "#9c27b0",
-                      "#673ab7",
-                      "#3f51b5",
-                      "#2196f3",
-                      "#03a9f4",
-                      "#00bcd4",
-                      "#009688",
-                      "#4caf50",
-                      "#cddc39",
-                      "#ffeb3b",
-                      "#ffc107",
-                      "#ff9800",
-                      "#ff5722",
-                      "#795548",
-                      "#607d8b",
-                      "#000000",
-                    ]}
-                    value={`rgba(${colorR},${colorG},${colorB},${opacity})`}
-                    onChange={(clr) => handleChangeColor(clr)}
-                  ></CirclePicker>
-                  <SliderControl>
-                    {typeDraw === "drawFree" ? null : (
-                      <Row style={{ paddingBottom: "5px" }}>
-                        <Col span={6}>
-                          <Title level={5} style={{ color: "#909396" }}>
-                            Opacity
-                          </Title>
-                        </Col>
-                        <Col span={12}>
-                          <Slider
-                            min={0}
-                            max={1}
-                            step={0.1}
-                            onChange={handleChangeOpacity}
-                            value={colorOpacityState}
-                          />
-                        </Col>
-                        <Col span={2}>
-                          <InputNumber
-                            min={1}
-                            max={20}
-                            style={{ margin: "0 16px", width: "50px" }}
-                            value={colorOpacityState}
-                            onChange={handleChangeOpacity}
-                          />
-                        </Col>
-                      </Row>
-                    )}
-                    <Row>
-                      <Col span={6}>
-                        <Title level={5} style={{ color: "#909396" }}>
-                          Size
-                        </Title>
-                      </Col>
-                      <Col span={12}>
-                        <Slider
-                          min={1}
-                          max={30}
-                          value={lineWidth}
-                          style={{ width: "120px" }}
-                          onChange={(value) => reLineWidth(value)}
-                        />
-                      </Col>
-                      <Col span={2}>
-                        <InputNumber
-                          min={1}
-                          max={20}
-                          style={{ margin: "0 16px", width: "50px" }}
-                          value={lineWidth}
-                          onChange={(value) => reLineWidth(value)}
-                        />
-                      </Col>
-                    </Row>
-                  </SliderControl>
-                </ModalControl>
-                <ButtonControl onClick={undo}>
-                  <AiOutlineUndo style={{ fontWeight: "bold" }} />
-                </ButtonControl>
-                <ButtonControl onClick={redo}>
-                  <AiOutlineRedo style={{ fontWeight: "bold" }} />
-                </ButtonControl>
-                {/* <DropdownControl overlay={menu}>
-                    <ClearOutlined />
-                </DropdownControl> */}
-                <ButtonControl onClick={handleClearAll}>
-                  <AiOutlineClear />
-                </ButtonControl>
-              </div>
-            </div>
-          </div>
-        </>
+            <Upload {...uploadProps}>
+              <ButtonUpload icon={<UploadOutlined />}>Upload</ButtonUpload>
+            </Upload>
+          </Col>
+          <Col>
+            <Radio.Group
+              onChange={handleChangeDrawType}
+              defaultValue="drawFree"
+            >
+              <RadioButtonControl value="drawFree">
+                <IoBrushOutline />
+              </RadioButtonControl>
+              <RadioButtonControl value="drawRect">
+                <IoSquareOutline />
+              </RadioButtonControl>
+              <RadioButtonControl value="drawCircle">
+                <RiCheckboxBlankCircleLine />
+              </RadioButtonControl>
+              <RadioButtonControl value="drawTri">
+                <IoTriangleOutline style={{ fontWeight: "bold" }} />
+              </RadioButtonControl>
+              <RadioButtonControl value="drawLine">
+                <BsSlash style={{ fontWeight: "bold" }} />
+              </RadioButtonControl>
+              <RadioButtonControl value="eraser">
+                <RiEraserLine style={{ fontWeight: "bold" }} />
+              </RadioButtonControl>
+              <RadioButtonControl onClick={handleTextMode} value="drawText">
+                <AiOutlineFontSize style={{ fontWeight: "bold" }} />
+              </RadioButtonControl>
+            </Radio.Group>
+            <ButtonPicker
+              onClick={showModal}
+              style={{
+                color: `rgba(${colorR},${colorG},${colorB},${opacity})`,
+                background: `rgba(${colorR},${colorG},${colorB},${opacity})`,
+              }}
+            >
+              <span></span>
+            </ButtonPicker>
+            <ModalControl
+              title="SelectColor"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              zIndex={9999}
+            >
+              <CirclePicker
+                colors={[
+                  "#f44336",
+                  "#e91e63",
+                  "#9c27b0",
+                  "#673ab7",
+                  "#3f51b5",
+                  "#2196f3",
+                  "#03a9f4",
+                  "#00bcd4",
+                  "#009688",
+                  "#4caf50",
+                  "#cddc39",
+                  "#ffeb3b",
+                  "#ffc107",
+                  "#ff9800",
+                  "#ff5722",
+                  "#795548",
+                  "#607d8b",
+                  "#000000",
+                ]}
+                value={`rgba(${colorR},${colorG},${colorB},${opacity})`}
+                onChange={(clr) => handleChangeColor(clr)}
+              ></CirclePicker>
+              <SliderControl>
+                {typeDraw === "drawFree" ? null : (
+                  <Row style={{ paddingBottom: "5px" }}>
+                    <Col span={6}>
+                      <Title level={5} style={{ color: "#909396" }}>
+                        Opacity
+                      </Title>
+                    </Col>
+                    <Col span={12}>
+                      <Slider
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        onChange={handleChangeOpacity}
+                        value={colorOpacityState}
+                      />
+                    </Col>
+                    <Col span={2}>
+                      <InputNumber
+                        min={1}
+                        max={20}
+                        style={{ margin: "0 16px", width: "50px" }}
+                        value={colorOpacityState}
+                        onChange={handleChangeOpacity}
+                      />
+                    </Col>
+                  </Row>
+                )}
+                <Row>
+                  <Col span={6}>
+                    <Title level={5} style={{ color: "#909396" }}>
+                      Size
+                    </Title>
+                  </Col>
+                  <Col span={12}>
+                    <Slider
+                      min={1}
+                      max={30}
+                      value={lineWidth}
+                      style={{ width: "120px" }}
+                      onChange={(value) => reLineWidth(value)}
+                    />
+                  </Col>
+                  <Col span={2}>
+                    <InputNumber
+                      min={1}
+                      max={20}
+                      style={{ margin: "0 16px", width: "50px" }}
+                      value={lineWidth}
+                      onChange={(value) => reLineWidth(value)}
+                    />
+                  </Col>
+                </Row>
+              </SliderControl>
+            </ModalControl>
+            <ButtonControl onClick={undo}>
+              <AiOutlineUndo style={{ fontWeight: "bold" }} />
+            </ButtonControl>
+            <ButtonControl onClick={redo}>
+              <AiOutlineRedo style={{ fontWeight: "bold" }} />
+            </ButtonControl>
+            <ButtonControl onClick={handleClearAll}>
+              <AiOutlineClear />
+            </ButtonControl>
+          </Col>
+          <Col>
+            <PagePerToTal>
+              <p style={transformP}>
+                {"Page: " + numPageCurrent + "/" + numPages}
+              </p>
+            </PagePerToTal>
+            <ButtonControl onClick={saveCanvas}>
+              <AiOutlineSave />
+            </ButtonControl>
+            <ButtonControl onClick={download}>
+              <AiOutlineDownload />
+            </ButtonControl>
+          </Col>
+        </Row>
       ) : (
         <h2 style={{ textAlign: "center", fontSize: "40px" }}>
           <Spin size="large" />

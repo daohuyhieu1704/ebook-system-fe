@@ -6,11 +6,6 @@ const { Header } = Layout;
 export const CustomHeader = styled(Header)`
   height: ${themeGet("headerHeight")}px;
   background-color: white;
-  padding: 0 ${themeGet("spaces.container")}px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 0 10px -5px gray;
   z-index: 3;
   position: sticky;
   top: 0;

@@ -61,13 +61,8 @@ export default function CanvasPage() {
     fetchPdf();
   }, [dispatch, src, srcState]);
   return (
-    <>
-      <Row>
-        <AppControl />
-      </Row>
-      <Row justify="center">
-        {!loadedSrc ? <Spin size="large" /> : pdf != null && <CanvasRoot />}
-      </Row>
-    </>
+    <Row justify="center">
+      {!loadedSrc ? <Spin size="large" /> : pdf != null && <CanvasRoot />}
+    </Row>
   );
 }
