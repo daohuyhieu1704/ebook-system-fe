@@ -438,9 +438,6 @@ const AppControl = () => {
       {loaded ? (
         <>
           <div className="menu-bar">
-            <div className="title">
-              <p>Slide-kit</p>
-            </div>
             <div className="control-bar">
               <div className="control-bar_up">
                 <div className="control-bar-up-right">
