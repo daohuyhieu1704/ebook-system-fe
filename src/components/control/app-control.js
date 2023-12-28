@@ -605,9 +605,7 @@ const AppControl = () => {
           </Col>
         </Row>
       ) : (
-        <h2 style={{ textAlign: "center", fontSize: "40px" }}>
-          <Spin size="large" />
-        </h2>
+        <></>
       )}
     </>
   );

@@ -124,7 +124,7 @@ export const LayoutHeader = () => {
         </Col>
         <Col span={1}>
           <Row align="middle" justify="center">
-            <Dropdown overlay={menu} trigger={["click"]} >
+            <Dropdown overlay={menu} trigger={["click"]}>
               <UserInfo>
                 <Tooltip placement="bottom" title="Cài đặt">
                   <Avatar

@@ -49,7 +49,8 @@ export const CustomMenuItem = styled(Menu.Item)`
 export const CustomSider = styled(Sider)`
   background-color: black;
   position: fixed;
-  height: 100%;
+  height: 100vh;
+  z-index: 9999;
   width: ${themeGet("sideBarWidth")}px;
   .ant-menu.ant-menu-dark,
   .ant-menu-dark .ant-menu-sub,
