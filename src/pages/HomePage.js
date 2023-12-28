@@ -11,16 +11,10 @@ const HomePage = () => {
   useEffect(() => {
     switch (userInfo?.role) {
       case 0:
-        navigate(PATH.DASHBOARD);
+        navigate(PATH.FUNC);
         break;
       case 1:
-        navigate(PATH.NOTIFICATION);
-        break;
-      case 2:
-        navigate(PATH.NOTIFICATION);
-        break;
-      case 3:
-        navigate(PATH.CSVC);
+        navigate(PATH.CANVAS);
         break;
       default:
         logout();

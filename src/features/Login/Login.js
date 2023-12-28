@@ -1,5 +1,6 @@
 import { Form, Input, Button, Checkbox } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
+import { signInWithGoogle } from "../../helper/firebase/firebase.utils";
 
 import {
   // ImgContent,
@@ -8,6 +9,7 @@ import {
   LoginWrapper,
   // ReForgotPass
 } from "./Login.style";
+
 import {
   loginSuccess,
   LoginType,
@@ -16,7 +18,9 @@ import {
   setIsLoggedIn,
 } from "./LoginSlice";
 import { PATH } from "../../constants/common";
+import { axiosPost } from "../../helper/axios";
 import React, { useEffect, useState } from "react";
+import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import colors from "../../theme/colors";
 import { theme } from "../../theme/theme";
 import { GoogleOutlined } from "@ant-design/icons";
@@ -34,12 +38,139 @@ export const Login = () => {
 
   const onFinish = (values) => {
     setLoading(true);
+    axiosPost(`${process.env.REACT_APP_ENDPOINT}emp_role/login`, {
+      username: values.username,
+      password: values.password,
+    })
+      .then((data) => {
+        if (data.data?.state === false) {
+          setLoading(false);
+          NotificationCustom({
+            type: "error",
+            message: "Error",
+            description: data.data?.message,
+          });
+        } else {
+          setLoading(false);
+          dispatch(
+            loginSuccess({
+              username: values.username,
+              fullname: values.username,
+              accessToken: data.data?.access_token,
+              remember: values.remember,
+              role: data.data?.role,
+            })
+          );
+
+          NotificationCustom({
+            type: "success",
+            message: "Thành công",
+            description: "Đăng nhập thành công",
+          });
+          navigate(from, { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        NotificationCustom({
+          type: "error",
+          message: "Lỗi",
+          description: "Đăng nhập không thành công, vui lòng thử lại",
+        });
+      });
   };
   useEffect(() => {
     if (userInfo.username) {
       navigate(PATH.HOME);
     }
   }, []);
+
+  const handleSignInGoogle = async () => {
+    try {
+      const data = await signInWithGoogle();
+      setLoading(false);
+
+      const postResponse = await axiosPost(
+        `${process.env.REACT_APP_ENDPOINT}emp_role/login`,
+        {
+          gmail: data.user?.email,
+        }
+      );
+
+      const dataLogin = postResponse.data;
+      console.log("lulu", from, dataLogin);
+
+      if (dataLogin?.state === false) {
+        setLoading(false);
+        NotificationCustom({
+          type: "error",
+          message: "Error",
+          description: dataLogin?.message,
+        });
+      } else {
+        setLoading(false);
+
+        dispatch(
+          loginSuccess({
+            username: dataLogin.data.username,
+            fullname: dataLogin.data.fullname,
+            accessToken: dataLogin?.access_token,
+            remember: true,
+            role: dataLogin.data?.department,
+          })
+        );
+        dispatch(setIsLoggedIn(true));
+        NotificationCustom({
+          type: "success",
+          message: "Thành công",
+          description: "Đăng nhập thành công",
+        });
+        navigate(from, { replace: true });
+      }
+
+      // dispatch(loginSuccess(userData));
+
+      // NotificationCustom({
+      //   type: "success",
+      //   message: "Thành công",
+      //   description: "Đăng nhập thành công",
+      // });
+
+      // navigate(from, { replace: true });
+    } catch (error) {
+      // Handle any errors here
+      console.error("Error:", error);
+    }
+    // signInWithGoogle().then((data) => {
+    //   setLoading(false);
+    //   axiosPost(
+    //     `${process.env.REACT_APP_ENDPOINT}emp_role/login`,
+    //     {
+    //       gmail: data.user?.email,
+    //     }
+    //   );
+    //   dispatch(
+    //     loginSuccess({
+    //       ...data,
+    //       username: data.user?.displayName,
+    //       firstName: data.user?.displayName,
+    //       lastName: "",
+    //       accessToken: data.user?.getIdToken(),
+    //       remember: true,
+    //       role: "CTSV",
+    //       type: 0,
+    //     })
+    //   );
+
+    //   NotificationCustom({
+    //     type: "success",
+    //     message: "Thành công",
+    //     description: "Đăng nhập thành công",
+    //   });
+    //   navigate(from, { replace: true });
+    //});
+  };
 
   return (
     <LoginWrapper>
@@ -128,7 +259,7 @@ export const Login = () => {
                   border: `3px solid ${colors.primary}`,
                   color: `${colors.primary}`,
                 }}
-                onClick={() => {}}
+                onClick={handleSignInGoogle}
               >
                 <GoogleOutlined /> Đăng nhập với Google{" "}
               </Button>
