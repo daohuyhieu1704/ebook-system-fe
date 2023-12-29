@@ -107,9 +107,6 @@ export const AdminLayout = ({ children }) => {
       ).map(createMenuItem),
     [MANAGEMENT_MENU, userInfo.role]
   );
-
-  console.log("listRouter", listRouter);
-
   useEffect(() => {
     if (!isLoggedIn) {
       logout();

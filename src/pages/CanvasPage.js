@@ -47,11 +47,9 @@ export default function CanvasPage() {
   const loadedSrc = useSelector(selectLoadedSrc);
   const typeDraw = useSelector(selectTypeDraw);
   const dispatch = useDispatch();
-  console.log("src", localStorage);
   useEffect(() => {
     const fetchPdf = async () => {
       const loadingTask = pdfjs.getDocument(src);
-      console.log("loadingTask", src);
       const pdfDoc = await loadingTask.promise;
       dispatch(setPDF(pdfDoc));
       dispatch(setNumPages(pdfDoc._pdfInfo.numPages));

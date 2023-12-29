@@ -71,7 +71,6 @@ export const Login = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
         NotificationCustom({
           type: "error",
@@ -99,7 +98,6 @@ export const Login = () => {
       );
 
       const dataLogin = postResponse.data;
-      console.log("lulu", from, dataLogin);
 
       if (dataLogin?.state === false) {
         setLoading(false);

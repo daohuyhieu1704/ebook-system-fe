@@ -2,6 +2,12 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppConstant from "../../constants/AppConstant";
+import {
+  drawCircle,
+  drawLine,
+  drawTriangle,
+  randomColor,
+} from "../../Uitls/CanvasFunc";
 import { selectNumPageCurrent, selectNumPages } from "../../redux/AppSlice";
 import {
   selectColorB,
@@ -335,21 +341,6 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       imgData && ctx.putImageData(imgData, 0, 0);
     }
 
-    function drawCircle(position) {
-      if (typeDraw === "drawCircle") {
-        let rrr = Math.sqrt(
-          Math.pow(position.x - dragStartPoint.x, 2) +
-            Math.pow(position.y - dragStartPoint.y, 2)
-        );
-
-        ctx.beginPath();
-        ctx.setLineDash([]);
-        ctx.globalCompositeOperation = "source-over";
-        ctx.arc(position.x, position.y, rrr, 0, 2 * Math.PI);
-        ctx.stroke();
-      }
-    }
-
     function drawRect(position) {
       ctx.beginPath();
       ctx.setLineDash([]);
@@ -360,43 +351,6 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
         dragStartPoint.x - position.x,
         dragStartPoint.y - position.y
       );
-      ctx.stroke();
-    }
-
-    function drawTriangle(position) {
-      var coordinates = [],
-        angle = 100,
-        sides = 3,
-        radius = Math.sqrt(
-          Math.pow(dragStartPoint.x - position.x, 2) +
-            Math.pow(dragStartPoint.x - position.x, 2)
-        ),
-        index = 0;
-
-      for (index = 0; index < sides; index++) {
-        coordinates.push({
-          x: dragStartPoint.x + radius * Math.cos(angle),
-          y: dragStartPoint.y - radius * Math.sin(angle),
-        });
-        angle += (2 * Math.PI) / sides;
-      }
-      ctx.setLineDash([]);
-      ctx.beginPath();
-      ctx.globalCompositeOperation = "source-over";
-      ctx.moveTo(coordinates[0].x, coordinates[0].y);
-      for (index = 1; index < sides; index++) {
-        ctx.lineTo(coordinates[index].x, coordinates[index].y);
-      }
-
-      ctx.closePath();
-      ctx.stroke();
-    }
-    function drawLine(position) {
-      ctx.setLineDash([]);
-      ctx.beginPath();
-      ctx.globalCompositeOperation = "source-over";
-      ctx.moveTo(dragStartPoint.x, dragStartPoint.y);
-      ctx.lineTo(position.x, position.y);
       ctx.stroke();
     }
 
@@ -416,7 +370,10 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
 
     function draw(position) {
       if (typeDraw === "drawCircle") {
-        drawCircle(position);
+        drawCircle(position, ctx, {
+          typeDraw: typeDraw,
+          dragStartPoint: dragStartPoint,
+        });
       }
 
       if (typeDraw === "drawRect") {
@@ -424,19 +381,15 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       }
 
       if (typeDraw === "drawTri") {
-        drawTriangle(position);
+        drawTriangle(position, ctx, {
+          dragStartPoint: dragStartPoint,
+        });
       }
       if (typeDraw === "drawLine") {
-        drawLine(position);
+        drawLine(position, ctx, {
+          dragStartPoint: dragStartPoint,
+        });
       }
-    }
-
-    function randomColor() {
-      var r = Math.round(Math.random() * 256);
-      var g = Math.round(Math.random() * 256);
-      var b = Math.round(Math.random() * 256);
-
-      return "rgb( " + r + "," + g + "," + b + ")";
     }
 
     function dragStart(event, typeDraw) {
