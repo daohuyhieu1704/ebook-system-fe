@@ -9,6 +9,8 @@ export function drawFree(e, ctx, currentState) {
   ctx.moveTo(currentState.lastX, currentState.lastY);
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
+  [currentState.lastX, currentState.lastY] = [e.offsetX, e.offsetY];
+
 }
 
 export function copy(imgData, canvas, ctx) {
@@ -118,3 +120,4 @@ export function randomColor() {
 
   return "rgb( " + r + "," + g + "," + b + ")";
 }
+

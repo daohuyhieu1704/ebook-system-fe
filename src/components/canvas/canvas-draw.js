@@ -7,9 +7,11 @@ import {
   drawLine,
   drawRect,
   drawTriangle,
+  drawTextSpecify,
   eraser,
   randomColor,
 } from "../../Uitls/CanvasFunc";
+import {setContextProp,loadCanvasData, saveCanvasData} from "../../Uitls/configPageFunc"
 import { selectNumPageCurrent } from "../../redux/AppSlice";
 import {
   selectColorB,
@@ -74,8 +76,8 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       canvasDrawRef.current.height = cviewport.height;
       // createCanvas(canvasDrawRef.current, ctx)
 
-      setContextProp();
-      loadCanvasData();
+      setContextProp(canvasDrawRef,pageScale, {colorR,colorG,colorB,opacity});
+      loadCanvasData(canvasDrawRef,pageNum);
     },
     []
   );
@@ -124,7 +126,7 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
 
     // setViewport(viewport);
 
-    setContextProp();
+    setContextProp(canvasDrawRef,pageScale, {colorR,colorG,colorB,opacity});
     ctx.lineWidth = scale * lineWidth;
   }, [scale, colorR, colorG, colorB, opacity]);
   useEffect(() => {
@@ -244,46 +246,46 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
     };
   });
 
-  function setContextProp() {
-    const ctx = canvasDrawRef.current.getContext("2d");
-    const thickness = (3 * pageScale) / AppConstant.CANVAS_SCALE;
-    ctx.lineCap = "round";
-    ctx.lineWidth = thickness;
-    ctx.strokeStyle = `rgba(${colorR},${colorG},${colorB},${opacity})`;
-  }
-  function loadCanvasData() {
-    let canvas = canvasDrawRef.current;
-    let context = canvasDrawRef.current.getContext("2d");
-    var data = localStorage.getItem("canvas-data-" + pageNum);
-    if (!data) return;
-    data = JSON.parse(data);
-    var img = new Image();
-    img.src = data.canvasData;
+  // function setContextProp() {
+  //   const ctx = canvasDrawRef.current.getContext("2d");
+  //   const thickness = (3 * pageScale) / AppConstant.CANVAS_SCALE;
+  //   ctx.lineCap = "round";
+  //   ctx.lineWidth = thickness;
+  //   ctx.strokeStyle = `rgba(${colorR},${colorG},${colorB},${opacity})`;
+  // }
+  // function loadCanvasData() {
+  //   let canvas = canvasDrawRef.current;
+  //   let context = canvasDrawRef.current.getContext("2d");
+  //   var data = localStorage.getItem("canvas-data-" + pageNum);
+  //   if (!data) return;
+  //   data = JSON.parse(data);
+  //   var img = new Image();
+  //   img.src = data.canvasData;
 
-    img.onload = function () {
-      context.drawImage(
-        img,
-        0,
-        0,
-        data.width,
-        data.height,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-    };
-  }
+  //   img.onload = function () {
+  //     context.drawImage(
+  //       img,
+  //       0,
+  //       0,
+  //       data.width,
+  //       data.height,
+  //       0,
+  //       0,
+  //       canvas.width,
+  //       canvas.height
+  //     );
+  //   };
+  // }
 
-  function saveCanvasData() {
-    let canvas = canvasDrawRef.current;
-    let data = {
-      width: canvas.width,
-      height: canvas.height,
-      canvasData: canvas.toDataURL(),
-    };
-    localStorage.setItem("canvas-data-" + pageNum, JSON.stringify(data));
-  }
+  // function saveCanvasData() {
+  //   let canvas = canvasDrawRef.current;
+  //   let data = {
+  //     width: canvas.width,
+  //     height: canvas.height,
+  //     canvasData: canvas.toDataURL(),
+  //   };
+  //   localStorage.setItem("canvas-data-" + pageNum, JSON.stringify(data));
+  // }
 
   function createCanvas(canvas, ctx) {
     let dragging = false;
@@ -363,7 +365,11 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       var position = getCanvasCoordinates(event);
       draw(position);
 
+      
       if (typeDraw === "drawText") {
+        if (typeDraw === "drawText") {
+          drawTextSpecify(ctx, {dragStartPoint,widthRectDrawText ,heightRectDrawText});
+        }
         DrawDict[typeDraw] &&
           DrawDict[typeDraw](position, ctx, {
             typeDraw: typeDraw,
