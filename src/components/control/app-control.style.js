@@ -3,12 +3,14 @@ import Modal from "antd/lib/modal/Modal";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectColor } from "./app-controlSlice";
+import themeGet from "@styled-system/theme-get";
 // export const PagePerPages = styled.div`
 //   display: inline;
 //   border: 1px solid black;
 // `
 export const RadioButtonControl = styled(Radio.Button)`
-  color: #909396;
+  background: ${themeGet("colors.dark")};
+  color: ${themeGet("colors.primary")};
 `;
 export const ButtonControl = styled(Button)`
   color: #909396;

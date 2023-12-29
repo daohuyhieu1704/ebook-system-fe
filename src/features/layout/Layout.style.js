@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Typography } from "antd";
 import { themeGet } from "@styled-system/theme-get";
 const { Content, Sider, Header } = Layout;
 
 export const LayoutWrapper = styled.div`
   min-width: 1024px;
-  background: #ececec;
+  background-color: ${themeGet("colors.white")};
 `;
 
 export const LabelWrapper = styled.div`
@@ -30,7 +30,7 @@ export const CustomContent = styled(Content)`
 `;
 
 export const CustomMenu = styled(Menu)`
-  background-color: black !important;
+  background-color: ${themeGet("colors.white")};
   /* border-right: 1px solid ${themeGet("colors.primary")}; */
   height: calc(100% - ${themeGet("headerHeight")}px);
   position: relative;
@@ -47,15 +47,13 @@ export const CustomMenuItem = styled(Menu.Item)`
 `;
 
 export const CustomSider = styled(Sider)`
-  background-color: black;
   position: fixed;
   height: 100vh;
-  z-index: 9999;
   width: ${themeGet("sideBarWidth")}px;
   .ant-menu.ant-menu-dark,
   .ant-menu-dark .ant-menu-sub,
   .ant-menu.ant-menu-dark .ant-menu-sub {
-    background-color: black;
+    background-color: ${themeGet("colors.white")};
   }
 `;
 
@@ -95,9 +93,6 @@ export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  span {
-    font-size: 1.3rem;
-  }
 `;
 
 export const LogoImage = styled.img`
@@ -107,15 +102,7 @@ export const LogoImage = styled.img`
   object-fit: contain;
 `;
 
-export const LogoText = styled.p`
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: ${themeGet("sizes.Standard")};
-  font-size: 1.3rem;
-`;
+export const LogoText = styled(Typography.Title)``;
 export const LogoPara = styled.p`
   color: white;
   display: flex;

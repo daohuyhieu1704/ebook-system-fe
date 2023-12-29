@@ -30,7 +30,6 @@ export const ButtonCofirm = styled(Button)`
 
 export const TitleHeader = styled.h2`
   position: absolute;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: 700;
@@ -47,7 +46,6 @@ export const UserInfo = styled.div`
 export const Avatar = styled.img``;
 export const DisplayName = styled.span`
   color: ${themeGet("colors.primary")};
-  margin-right: 0.5rem;
   font-weight: 600;
   /* font-size: 1rem; */
 `;

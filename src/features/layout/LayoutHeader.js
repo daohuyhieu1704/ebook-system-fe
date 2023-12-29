@@ -5,7 +5,7 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import React, { createElement, useEffect } from "react";
+import React, { createElement, useEffect, useMemo } from "react";
 import { theme } from "../../theme/theme";
 import {
   selectIsLoggedIn,
@@ -22,6 +22,7 @@ import {
 } from "./LayoutHeader.style";
 import {
   Avatar,
+  Breadcrumb,
   Col,
   DatePicker,
   Drawer,
@@ -34,16 +35,19 @@ import {
 } from "antd";
 import { useLogout } from "../../hooks/useLogout";
 import {
+  changeSelectedKey,
   closeDrawer,
   selectCollapsed,
   selectDisableSubmit,
   selectDrawerVisible,
   selectIsLoadingSubmit,
   selectIsUpdateForm,
+  selectSelectedKey,
+  setSelectedRows,
   toggleSidebar,
 } from "./LayoutSlice";
-import { useLocation, useNavigate } from "react-router-dom";
-import { PATH } from "../../constants/common";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { MANAGEMENT_MENU, PATH } from "../../constants/common";
 import moment from "moment";
 import FuncForm from "../Func/FuncForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,6 +66,7 @@ export const LayoutHeader = () => {
   const isUpdateForm = useSelector(selectIsUpdateForm);
   const isLoadingSubmit = useSelector(selectIsLoadingSubmit);
   const disableSubmit = useSelector(selectDisableSubmit);
+  const selectedKey = useSelector(selectSelectedKey);
   const location = useLocation();
 
   const forms = {
@@ -91,6 +96,30 @@ export const LayoutHeader = () => {
     });
   };
 
+  const createMenuItem = (item) => {
+    if (!item.children) {
+      return {
+        key: item.path,
+        icon: item.icon,
+        label: item.name,
+      };
+    } else {
+      return {
+        key: item.name,
+        icon: item.icon,
+        label: item.name,
+        children: item.children.map(createMenuItem),
+      };
+    }
+  };
+
+  const listRouter = useMemo(
+    () =>
+      MANAGEMENT_MENU.filter((item) =>
+        item.permissions.includes(userInfo.role)
+      ).map(createMenuItem),
+    [MANAGEMENT_MENU, userInfo.role]
+  );
   const menu = (
     <Menu style={{ padding: "0" }}>
       <CustomMenuItemDropdown
@@ -120,7 +149,24 @@ export const LayoutHeader = () => {
           })}
         </Col>
         <Col span={22}>
-          <AppControl />
+          <Menu
+            mode="horizontal"
+            defaultSelectedKeys={[selectedKey]}
+            disabledOverflow={true}
+            selectedKeys={[selectedKey]}
+            onSelect={({ key }) => {
+              dispatch(setSelectedRows([]));
+              key !== "logout" && dispatch(changeSelectedKey(key));
+            }}
+            //defaultOpenKeys={false ? [] : ['userpage', 'adminpage', 'Cơ sở vật chất', 'Kế toán', 'Đào tạo']}
+            defaultOpenKeys={["userpage", "adminpage"]}
+          >
+            {listRouter.map((item) => (
+              <Menu.Item key={item.key} icon={item.icon}>
+                <Link to={item.key}>{item.label}</Link>
+              </Menu.Item>
+            ))}
+          </Menu>
         </Col>
         <Col span={1}>
           <Row align="middle" justify="center">

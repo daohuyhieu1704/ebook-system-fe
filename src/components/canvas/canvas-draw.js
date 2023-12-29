@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AppConstant from "../../constants/AppConstant";
+import AppConstant, { DRAW_TYPE } from "../../constants/AppConstant";
 import {
   drawCircle,
   drawLine,
+  drawRect,
   drawTriangle,
+  eraser,
   randomColor,
 } from "../../Uitls/CanvasFunc";
-import { selectNumPageCurrent, selectNumPages } from "../../redux/AppSlice";
+import { selectNumPageCurrent } from "../../redux/AppSlice";
 import {
   selectColorB,
   selectColorG,
@@ -16,31 +18,20 @@ import {
   selectFlagDraw,
   selectOpacity,
   selectTypeDraw,
-  selectUndoState,
   selectLineWidth,
   setFlagDraw,
-  setLineWidth,
   selectClearAllState,
   setClearAllState,
   selectTextContent,
   selectTextSpecify,
-  selectTextMode,
   selectTextStart,
   selectTextEnd,
   selectTextSize,
-  selectTextColor,
-  selectTextBoundary,
   setTextStart,
   setTextEnd,
-  setTextMode,
   setTextSpecify,
   setTextContent,
-  setTextSize,
-  setTextColor,
-  setTextBoundary,
-  setTextWH,
 } from "../control/app-controlSlice";
-import { selectIndexHistory, setIndexHistory } from "./canvas-containerSlice";
 
 import "./canvas-draw.css";
 const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
@@ -314,17 +305,6 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       ctx.stroke();
       [lastX, lastY] = [e.offsetX, e.offsetY];
     }
-    function eraser(e) {
-      if (!dragging) {
-        return;
-      }
-      ctx.beginPath();
-      ctx.setLineDash([]);
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.arc(lastX, lastY, 8, 0, Math.PI * 2, false);
-      ctx.fill();
-      [lastX, lastY] = [e.offsetX, e.offsetY];
-    }
     function getCanvasCoordinates(event) {
       var x = event.clientX - canvas.getBoundingClientRect().left,
         y = event.clientY - canvas.getBoundingClientRect().top;
@@ -337,59 +317,22 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
     }
 
     function paste() {
-      // ctx.putImageData(imgData, 0, 0)
       imgData && ctx.putImageData(imgData, 0, 0);
     }
 
-    function drawRect(position) {
-      ctx.beginPath();
-      ctx.setLineDash([]);
-      ctx.globalCompositeOperation = "source-over";
-      ctx.rect(
-        position.x,
-        position.y,
-        dragStartPoint.x - position.x,
-        dragStartPoint.y - position.y
-      );
-      ctx.stroke();
-    }
-
-    function drawTextSpecify() {
-      ctx.setLineDash([5, 5]);
-      ctx.beginPath();
-      ctx.globalCompositeOperation = "source-over";
-      console.log("rectDraw");
-      ctx.rect(
-        dragStartPoint.x,
-        dragStartPoint.y,
-        widthRectDrawText,
-        heightRectDrawText
-      );
-      ctx.stroke();
-    }
+    const DrawDict = {
+      [DRAW_TYPE.CIRCLE]: drawCircle,
+      [DRAW_TYPE.RECT]: drawRect,
+      [DRAW_TYPE.TRIANGLE]: drawTriangle,
+      [DRAW_TYPE.LINE]: drawLine,
+    };
 
     function draw(position) {
-      if (typeDraw === "drawCircle") {
-        drawCircle(position, ctx, {
+      DrawDict[typeDraw] &&
+        DrawDict[typeDraw](position, ctx, {
           typeDraw: typeDraw,
           dragStartPoint: dragStartPoint,
         });
-      }
-
-      if (typeDraw === "drawRect") {
-        drawRect(position);
-      }
-
-      if (typeDraw === "drawTri") {
-        drawTriangle(position, ctx, {
-          dragStartPoint: dragStartPoint,
-        });
-      }
-      if (typeDraw === "drawLine") {
-        drawLine(position, ctx, {
-          dragStartPoint: dragStartPoint,
-        });
-      }
     }
 
     function dragStart(event, typeDraw) {
@@ -421,9 +364,11 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       draw(position);
 
       if (typeDraw === "drawText") {
-        if (typeDraw === "drawText") {
-          drawTextSpecify();
-        }
+        DrawDict[typeDraw] &&
+          DrawDict[typeDraw](position, ctx, {
+            typeDraw: typeDraw,
+            dragStartPoint: dragStartPoint,
+          });
         dispatch(
           setTextEnd([
             dragStartPoint.x + widthRectDrawText,
@@ -449,9 +394,12 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       if (typeDraw === "drawFree") {
         drawFree(e);
       } else if (typeDraw === "eraser") {
-        eraser(e);
+        eraser(e, ctx, {
+          dragging,
+          lastX,
+          lastY,
+        });
       } else {
-        //position = { x: e.offsetX, y: e.offsetY }
         drag(e);
       }
     };
