@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu, Button, Row } from "antd";
 import themeGet from "@styled-system/theme-get";
 const { Header } = Layout;
 
@@ -55,16 +55,12 @@ export const CustomMenuItemDropdown = styled(Menu.Item)`
   border-radius: 0 0 5px 5px;
 `;
 
-export const ActionWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin-left: 1rem;
-`;
+export const ActionWrapper = styled(Row)``;
 export const ActionItem = styled(Button)`
   line-height: normal !important;
   margin-right: 1rem;
   border: 1px solid #ddd;
+  width: 100%;
   cursor: pointer;
   transition: all 0.5s;
   &:hover {

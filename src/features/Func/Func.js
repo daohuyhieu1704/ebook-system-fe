@@ -13,6 +13,7 @@ import { selectUserInfo } from "../Login/LoginSlice";
 import { FunctionAPI } from "../../api/FunctionAPI";
 import { selectFuncList, setFuncList } from "./FuncSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Container } from "../Layout/Layout.style";
 const { Link } = Typography;
 export default function Func() {
   const dispatch = useDispatch();

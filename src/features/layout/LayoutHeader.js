@@ -184,11 +184,11 @@ export const LayoutHeader = () => {
           </Row>
         </Col>
       </Row>
-      {/* <Drawer
+      <Drawer
         title={forms[location?.pathname]?.formTitle}
         width={500}
         maskClosable={false}
-        placement="right"
+        placement="left"
         onClose={drawerOnClose}
         visible={drawerVisible}
         footer={[
@@ -221,7 +221,7 @@ export const LayoutHeader = () => {
         }}
       >
         {forms[location?.pathname]?.formRender}
-      </Drawer> */}
+      </Drawer>
     </CustomHeader>
   );
 };

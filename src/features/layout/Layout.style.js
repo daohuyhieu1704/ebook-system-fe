@@ -16,16 +16,13 @@ export const LabelWrapper = styled.div`
     align-items: center;
 `;
 
-export const CustomLayout = styled(Layout)``;
-
 export const CustomContent = styled(Content)`
   padding: ${themeGet("spaces.fifteen")}px;
-  /* padding: 0; */
-  min-height: calc(100vh - ${themeGet("headerHeight")}px);
-  /* border: 16px ${themeGet("colors.border")} solid; */
-  /* display: flex;
+  background: #ececec;
+  height: calc(100vh - ${themeGet("headerHeight")}px);
+  display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 `;
 
 export const CustomMenu = styled(Menu)`

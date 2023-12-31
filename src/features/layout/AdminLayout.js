@@ -23,6 +23,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import AppControl from "../../components/control/app-control";
 import colors from "../../theme/colors";
+import CRUDBtnList from "./components/CRUDBtnList";
 
 const { confirm } = Modal;
 
@@ -62,15 +63,18 @@ export const AdminLayout = ({ children }) => {
           {collapsed ? (
             <></>
           ) : (
-            <Row
-              align="middle"
-              justify="center"
-              style={{ borderBottom: `1px solid ${colors.gray}` }}
-            >
-              <LogoText underline>Slide-kit</LogoText>
-            </Row>
+            <>
+              <Row
+                align="middle"
+                justify="center"
+                style={{ borderBottom: `1px solid ${colors.gray}` }}
+              >
+                <LogoText underline>Slide-kit</LogoText>
+              </Row>
+              <AppControl />
+              <CRUDBtnList />
+            </>
           )}
-          <AppControl />
         </CustomSider>
         <Layout
           className="site-layout"
