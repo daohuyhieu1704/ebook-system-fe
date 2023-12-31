@@ -1,12 +1,12 @@
-import axios from 'axios';
-import getLocalToken from './token';
+import axios from "axios";
+import getLocalToken from "./token";
 
 const axiosClient = axios.create({
   headers: {
-    'access-control-allow-origin': '*',
-    Accept: 'application/json',
-    'content-type': 'application/json',
-    Pragma: 'no-cache',
+    "access-control-allow-origin": "*",
+    Accept: "application/json",
+    "content-type": "application/json",
+    Pragma: "no-cache",
   },
 });
 
@@ -18,7 +18,7 @@ const axiosClient = axios.create({
 //   return config
 // })
 
-axiosClient.interceptors.response.use((response: any) => {
+axiosClient.interceptors.response.use((response) => {
   // TODO: handle expired token
   return response;
 });

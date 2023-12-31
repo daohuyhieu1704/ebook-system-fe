@@ -1,13 +1,14 @@
-import styled from 'styled-components';
-import { Table } from 'antd';
-import { themeGet } from '@styled-system/theme-get';
+import styled from "styled-components";
+import { Table } from "antd";
+import { themeGet } from "@styled-system/theme-get";
 
 export const TableCustom = styled(Table)`
+  margin: 16px;
   .ant-table-thead {
     tr {
       th {
-        background-color: ${themeGet('colors.primary')};
-        color: ${themeGet('colors.white')};
+        background-color: ${themeGet("colors.primary")};
+        color: ${themeGet("colors.white")};
         /* text-align: center; */
 
         &::before {
@@ -21,7 +22,7 @@ export const TableCustom = styled(Table)`
     tr {
       /* text-align: center; */
       &:nth-child(even) {
-        background-color: ${themeGet('colors.backgroundColor')} !important;
+        background-color: ${themeGet("colors.backgroundColor")} !important;
         td {
           background-color: inherit;
         }
@@ -31,11 +32,11 @@ export const TableCustom = styled(Table)`
     margin: 0 0 16px 0;
   }
   .table-row-warning {
-    color: ${themeGet('colors.warning')};
+    color: ${themeGet("colors.warning")};
     font-weight: 700;
   }
   .table-row-gray {
     text-decoration:line-through;
-    //color: ${themeGet('colors.gray')};
+    //color: ${themeGet("colors.gray")};
   }
 `;

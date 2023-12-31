@@ -1,14 +1,13 @@
 import { LoadingOutlined } from "@ant-design/icons";
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminPrivateRoutes, PublicRoutes } from "./configs/Router";
 import { PATH } from "./constants/common";
 import { AppLayout } from "./features/Layout/Layout";
-import { useLogout } from "./hooks/useLogout";
 import NotFoundPage from "./pages/NotFoundPage";
 import { theme } from "./theme/theme";
 
-const App = () => {
+function App() {
   return (
     <BrowserRouter>
       <Suspense
@@ -39,6 +38,6 @@ const App = () => {
       </Suspense>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

@@ -6,13 +6,6 @@ import { useLogout } from "../../hooks/useLogout";
 import { theme } from "../../theme/theme";
 import { selectIsLoggedIn, selectUserInfo } from "../Login/LoginSlice";
 import {
-  AppstoreOutlined,
-  CalendarOutlined,
-  LinkOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import {
   CustomContent,
   CustomSider,
   ImageContent,
@@ -61,7 +54,7 @@ export const AdminLayout = ({ children }) => {
     <LayoutWrapper>
       <Layout>
         <CustomSider
-          theme={"light"}
+          theme="light"
           collapsed={collapsed}
           width={theme.sideBarWidth}
           style={!isLoggedIn ? { display: "none" } : {}}

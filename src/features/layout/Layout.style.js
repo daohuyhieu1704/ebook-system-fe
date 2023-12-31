@@ -5,7 +5,7 @@ const { Content, Sider, Header } = Layout;
 
 export const LayoutWrapper = styled.div`
   min-width: 1024px;
-  background-color: ${themeGet("colors.white")};
+  background: #ececec;
 `;
 
 export const LabelWrapper = styled.div`
@@ -22,7 +22,6 @@ export const CustomContent = styled(Content)`
   padding: ${themeGet("spaces.fifteen")}px;
   /* padding: 0; */
   min-height: calc(100vh - ${themeGet("headerHeight")}px);
-  //background-color: white;
   /* border: 16px ${themeGet("colors.border")} solid; */
   /* display: flex;
   justify-content: center;
@@ -30,8 +29,7 @@ export const CustomContent = styled(Content)`
 `;
 
 export const CustomMenu = styled(Menu)`
-  background-color: ${themeGet("colors.white")};
-  /* border-right: 1px solid ${themeGet("colors.primary")}; */
+  border-right: 1px solid ${themeGet("colors.primary")};
   height: calc(100% - ${themeGet("headerHeight")}px);
   position: relative;
 
@@ -48,31 +46,34 @@ export const CustomMenuItem = styled(Menu.Item)`
 
 export const CustomSider = styled(Sider)`
   position: fixed;
-  height: 100vh;
+  border-right: 1px solid ${themeGet("colors.primary")};
+  height: 100%;
   width: ${themeGet("sideBarWidth")}px;
   .ant-menu.ant-menu-dark,
   .ant-menu-dark .ant-menu-sub,
   .ant-menu.ant-menu-dark .ant-menu-sub {
-    background-color: ${themeGet("colors.white")};
+    background-color: black;
   }
 `;
 
 export const CustomHeader = styled(Header)`
   height: ${themeGet("headerHeight")}px;
-  background-color: black;
+  background-color: white;
   padding: 0 ${themeGet("spaces.container")}px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 10px -5px gray;
+  box-shadow: 0 0 10px -5px relative;
   z-index: 1;
-  position: relative;
+  position: sticky;
+  top: 0;
 
   & > span {
     color: white;
     font-size: 1.1rem;
   }
 `;
+
 export const CategoryTitle = styled.div`
   font-weight: 700;
   font-size: 1.5rem;
@@ -88,20 +89,6 @@ export const CategoryTitle = styled.div`
 export const CustomMenuItemDropdown = styled(Menu.Item)`
   padding: 10px 30px;
 `;
-export const LogoWrapper = styled.div`
-  height: ${themeGet("headerHeight")}px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const LogoImage = styled.img`
-  width: 40px;
-  height: 40px;
-  margin-right: 0.5rem;
-  object-fit: contain;
-`;
-
 export const LogoText = styled(Typography.Title)``;
 export const LogoPara = styled.p`
   color: white;
