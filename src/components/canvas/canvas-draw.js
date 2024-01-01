@@ -9,7 +9,9 @@ import {
   drawTriangle,
   drawTextSpecify,
   eraser,
-  randomColor,
+  dragStart,
+  drag,
+  dragStop,
 } from "../../Uitls/CanvasFunc";
 import {setContextProp,loadCanvasData, saveCanvasData} from "../../Uitls/configPageFunc"
 import { selectNumPageCurrent } from "../../redux/AppSlice";
@@ -307,12 +309,13 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       ctx.stroke();
       [lastX, lastY] = [e.offsetX, e.offsetY];
     }
-    function getCanvasCoordinates(event) {
-      var x = event.clientX - canvas.getBoundingClientRect().left,
-        y = event.clientY - canvas.getBoundingClientRect().top;
 
-      return { x: x, y: y };
-    }
+    // function getCanvasCoordinates(event) {
+    //   var x = event.clientX - canvas.getBoundingClientRect().left,
+    //     y = event.clientY - canvas.getBoundingClientRect().top;
+
+    //   return { x: x, y: y };
+    // }
 
     function copy() {
       imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -329,62 +332,63 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       [DRAW_TYPE.LINE]: drawLine,
     };
 
-    function draw(position) {
-      DrawDict[typeDraw] &&
-        DrawDict[typeDraw](position, ctx, {
-          typeDraw: typeDraw,
-          dragStartPoint: dragStartPoint,
-        });
-    }
+    // function draw(position) {
+    //   DrawDict[typeDraw] &&
+    //     DrawDict[typeDraw](position, ctx, {
+    //       typeDraw: typeDraw,
+    //       dragStartPoint: dragStartPoint,
+    //     });
+    // }
 
-    function dragStart(event, typeDraw) {
-      document.removeEventListener("keydown", () => {});
-      dragging = true;
-      dragStartPoint = getCanvasCoordinates(event);
-      copy();
-      if (typeDraw === "drawText") {
-        dispatch(setTextSpecify(true));
-        dispatch(setTextStart([dragStartPoint.x, dragStartPoint.y]));
-      }
-    }
+    // function dragStart(event, typeDraw) {
+    //   document.removeEventListener("keydown", () => {});
+    //   dragging = true;
+    //   dragStartPoint = getCanvasCoordinates(event);
+    //   copy();
+    //   if (typeDraw === "drawText") {
+    //     dispatch(setTextSpecify(true));
+    //     dispatch(setTextStart([dragStartPoint.x, dragStartPoint.y]));
+    //   }
+    // }
 
-    function drag(event) {
-      var position;
-      if (dragging === true) {
-        paste();
-        position = getCanvasCoordinates(event);
-        ctx.fillStyle = randomColor();
-        draw(position);
-      }
-    }
+    // function drag(event) {
+    //   var position;
+    //   if (dragging === true) {
+    //     paste();
+    //     position = getCanvasCoordinates(event);
+    //     ctx.fillStyle = randomColor();
+    //     draw(position);
+    //   }
+    // }
 
-    function dragStop(event) {
-      dragging = false;
-      paste();
-      ctx.fillStyle = randomColor();
-      var position = getCanvasCoordinates(event);
-      draw(position);
+    // function dragStop(event) {
+    //   dragging = false;
+    //   paste();
+    //   ctx.fillStyle = randomColor();
+    //   var position = getCanvasCoordinates(event);
+    //   draw(position);
 
       
-      if (typeDraw === "drawText") {
-        if (typeDraw === "drawText") {
-          drawTextSpecify(ctx, {dragStartPoint,widthRectDrawText ,heightRectDrawText});
-        }
-        DrawDict[typeDraw] &&
-          DrawDict[typeDraw](position, ctx, {
-            typeDraw: typeDraw,
-            dragStartPoint: dragStartPoint,
-          });
-        dispatch(
-          setTextEnd([
-            dragStartPoint.x + widthRectDrawText,
-            dragStartPoint.y + heightRectDrawText,
-          ])
-        );
-        dispatch(setTextSpecify(true));
-        dispatch(setTextContent(""));
-      }
-    }
+    //   if (typeDraw === "drawText") {
+    //     if (typeDraw === "drawText") {
+    //       drawTextSpecify(ctx, {dragStartPoint,widthRectDrawText ,heightRectDrawText});
+    //     }
+    //     DrawDict[typeDraw] &&
+    //       DrawDict[typeDraw](position, ctx, {
+    //         typeDraw: typeDraw,
+    //         dragStartPoint: dragStartPoint,
+    //       });
+    //     dispatch(
+    //       setTextEnd([
+    //         dragStartPoint.x + widthRectDrawText,
+    //         dragStartPoint.y + heightRectDrawText,
+    //       ])
+    //     );
+    //     dispatch(setTextSpecify(true));
+    //     dispatch(setTextContent(""));
+    //   }
+    // }
+    
     const mouseDownFucntion = (e) => {
       [lastX, lastY] = [e.offsetX, e.offsetY];
       dragging = true;

@@ -121,3 +121,65 @@ export function randomColor() {
   return "rgb( " + r + "," + g + "," + b + ")";
 }
 
+export function getCanvasCoordinates(event, canvas) {
+  var x = event.clientX - canvas.getBoundingClientRect().left,
+    y = event.clientY - canvas.getBoundingClientRect().top;
+
+  return { x: x, y: y };
+}
+
+export function draw(position, ctx, currentState) {
+  currentState.DrawDict[currentState.typeDraw] &&
+    currentState.DrawDict[currentState.typeDraw](position, ctx, currentState, {
+      typeDraw: currentState.typeDraw,
+      dragStartPoint: currentState.dragStartPoint,
+    });
+}
+
+export function dragStart(event, currentState) {
+  currentState.document.removeEventListener("keydown", () => {});
+  currentState.dragging = true;
+  currentState.dragStartPoint = getCanvasCoordinates(event, canvas);
+  copy();
+  if (currentState.typeDraw === "drawText") {
+    dispatch(setTextSpecify(true));
+    dispatch(setTextStart([currentState.dragStartPoint.x, currentState.dragStartPoint.y]));
+  }
+}
+
+export function drag(event, ctx, currentState) {
+  var position;
+  if (currentState.dragging === true) {
+    paste();
+    position = getCanvasCoordinates(event);
+    ctx.fillStyle = randomColor();
+    draw(position);
+  }
+}
+
+export function dragStop(event, ctx, position, currentState) {
+  currentState.dragging = false;
+  paste();
+  ctx.fillStyle = randomColor();
+  position = getCanvasCoordinates(event);
+  draw(position);
+
+  if (currentState.typeDraw === "drawText") {
+    if (currentState.typeDraw === "drawText") {
+      drawTextSpecify(ctx, {dragStartPoint, widthRectDrawText, heightRectDrawText});
+    }
+    currentState.DrawDict[typeDraw] &&
+      currentState.DrawDict[typeDraw](position, ctx, {
+        typeDraw: currentState.typeDraw,
+        dragStartPoint: currentState.dragStartPoint,
+      });
+    dispatch(
+      setTextEnd([
+        currentState.dragStartPoint.x + currentState.widthRectDrawText,
+        currentState.dragStartPoint.y + currentState.heightRectDrawText,
+      ])
+    );
+    dispatch(setTextSpecify(true));
+    dispatch(setTextContent(""));
+  }
+}
