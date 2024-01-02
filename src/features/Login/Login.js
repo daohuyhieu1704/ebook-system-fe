@@ -88,6 +88,7 @@ export const Login = () => {
   const handleSignInGoogle = async () => {
     try {
       const data = await signInWithGoogle();
+      console.log(data);
       setLoading(false);
 
       const postResponse = await axiosPost(
@@ -99,33 +100,24 @@ export const Login = () => {
 
       const dataLogin = postResponse.data;
 
-      if (dataLogin?.state === false) {
-        setLoading(false);
-        NotificationCustom({
-          type: "error",
-          message: "Error",
-          description: dataLogin?.message,
-        });
-      } else {
-        setLoading(false);
+      setLoading(false);
 
-        dispatch(
-          loginSuccess({
-            username: dataLogin.data.username,
-            fullname: dataLogin.data.fullname,
-            accessToken: dataLogin?.access_token,
-            remember: true,
-            role: dataLogin.data?.department,
-          })
-        );
-        dispatch(setIsLoggedIn(true));
-        NotificationCustom({
-          type: "success",
-          message: "Thành công",
-          description: "Đăng nhập thành công",
-        });
-        navigate(from, { replace: true });
-      }
+      dispatch(
+        loginSuccess({
+          username: data.user?.email,
+          fullname: data.user?.fullname,
+          accessToken: data.user?.access_token,
+          remember: true,
+          role: 1,
+        })
+      );
+      dispatch(setIsLoggedIn(true));
+      NotificationCustom({
+        type: "success",
+        message: "Thành công",
+        description: "Đăng nhập thành công",
+      });
+      navigate(from, { replace: true });
 
       // dispatch(loginSuccess(userData));
 

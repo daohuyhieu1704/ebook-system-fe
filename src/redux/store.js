@@ -5,6 +5,7 @@ import canvasContainerReducer from "../components/canvas/canvas-containerSlice";
 import LayoutReducer from "../features/Layout/LayoutSlice";
 import LoginReducer from "../features/Login/LoginSlice";
 import FuncReducer from "../features/Func/FuncSlice";
+import UserReducer from "../features/User/UserSlice";
 export default configureStore({
   reducer: {
     app: appReducer,
@@ -13,6 +14,7 @@ export default configureStore({
     layout: LayoutReducer,
     login: LoginReducer,
     func: FuncReducer,
+    user: UserReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,

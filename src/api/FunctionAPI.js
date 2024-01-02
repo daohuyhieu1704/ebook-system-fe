@@ -10,4 +10,18 @@ export const FunctionAPI = {
       },
     });
   },
+  create(token, data) {
+    const url = `${process.env.REACT_APP_ENDPOINT}emp_role/funtion`;
+    const headers = {
+      authorization: `Bearer ${token}`,
+    };
+    return axiosClient.post(url, data, { headers });
+  },
+  update(token, id, data) {
+    const url = `${process.env.REACT_APP_ENDPOINT}emp_role/funtion/${id}`;
+    const headers = {
+      authorization: `Bearer ${token}`,
+    };
+    return axiosClient.put(url, data, { headers });
+  },
 };

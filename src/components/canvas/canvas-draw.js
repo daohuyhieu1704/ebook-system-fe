@@ -2,16 +2,12 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppConstant, { DRAW_TYPE } from "../../constants/AppConstant";
+import { drawTextSpecify, eraser, randomColor } from "../../Uitls/CanvasFunc";
 import {
-  drawCircle,
-  drawLine,
-  drawRect,
-  drawTriangle,
-  drawTextSpecify,
-  eraser,
-  randomColor,
-} from "../../Uitls/CanvasFunc";
-import {setContextProp,loadCanvasData, saveCanvasData} from "../../Uitls/configPageFunc"
+  setContextProp,
+  loadCanvasData,
+  saveCanvasData,
+} from "../../Uitls/configPageFunc";
 import { selectNumPageCurrent } from "../../redux/AppSlice";
 import {
   selectColorB,
@@ -36,6 +32,8 @@ import {
 } from "../control/app-controlSlice";
 
 import "./canvas-draw.css";
+import { FunctionAPI } from "../../api/FunctionAPI";
+import { selectUserInfo } from "../../features/Login/LoginSlice";
 const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
   let pageScale = scale;
   const canvasDrawRef = useRef(null);
@@ -43,6 +41,7 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
   const [orgHeight, setOrgHeight] = useState(null);
   const lineWidth = useSelector(selectLineWidth);
   const [lineWidthState, setLineWidthState] = useState(3);
+  const [DrawDict, setDrawDict] = useState({});
   const flagDraw = useSelector(selectFlagDraw);
   const colorR = useSelector(selectColorR);
   const colorG = useSelector(selectColorG);
@@ -56,6 +55,7 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
   const textStart = useSelector(selectTextStart);
   const textEnd = useSelector(selectTextEnd);
   const textSize = useSelector(selectTextSize);
+  const userInfo = useSelector(selectUserInfo);
 
   const [medTxt, setMedTxt] = useState([""]);
   const spaceBetweenLine = 20;
@@ -76,8 +76,13 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       canvasDrawRef.current.height = cviewport.height;
       // createCanvas(canvasDrawRef.current, ctx)
 
-      setContextProp(canvasDrawRef,pageScale, {colorR,colorG,colorB,opacity});
-      loadCanvasData(canvasDrawRef,pageNum);
+      setContextProp(canvasDrawRef, pageScale, {
+        colorR,
+        colorG,
+        colorB,
+        opacity,
+      });
+      loadCanvasData(canvasDrawRef, pageNum);
     },
     []
   );
@@ -126,7 +131,12 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
 
     // setViewport(viewport);
 
-    setContextProp(canvasDrawRef,pageScale, {colorR,colorG,colorB,opacity});
+    setContextProp(canvasDrawRef, pageScale, {
+      colorR,
+      colorG,
+      colorB,
+      opacity,
+    });
     ctx.lineWidth = scale * lineWidth;
   }, [scale, colorR, colorG, colorB, opacity]);
   useEffect(() => {
@@ -322,13 +332,6 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       imgData && ctx.putImageData(imgData, 0, 0);
     }
 
-    const DrawDict = {
-      [DRAW_TYPE.CIRCLE]: drawCircle,
-      [DRAW_TYPE.RECT]: drawRect,
-      [DRAW_TYPE.TRIANGLE]: drawTriangle,
-      [DRAW_TYPE.LINE]: drawLine,
-    };
-
     function draw(position) {
       DrawDict[typeDraw] &&
         DrawDict[typeDraw](position, ctx, {
@@ -365,10 +368,13 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
       var position = getCanvasCoordinates(event);
       draw(position);
 
-      
       if (typeDraw === "drawText") {
         if (typeDraw === "drawText") {
-          drawTextSpecify(ctx, {dragStartPoint,widthRectDrawText ,heightRectDrawText});
+          drawTextSpecify(ctx, {
+            dragStartPoint,
+            widthRectDrawText,
+            heightRectDrawText,
+          });
         }
         DrawDict[typeDraw] &&
           DrawDict[typeDraw](position, ctx, {
@@ -466,6 +472,38 @@ const CanvasDraw = ({ pdfDoc, page, pageNum, scale }) => {
     let canvas = canvasDrawRef.current;
     ctx.clearRect(0, 0, canvas.width, canvas.width);
   };
+
+  useEffect(() => {
+    FunctionAPI.getAll(userInfo.accessToken).then((res) => {
+      const data = res.data.data.map((data, index) => ({
+        key: data.id,
+        ...data,
+      }));
+      const kuku = res.data.data.reduce((acc, cur) => {
+        if (cur.script.indexOf("function ") !== -1) {
+          const scriptName = cur.script.slice(
+            cur.script.indexOf(" ") + 1,
+            cur.script.indexOf("(")
+          );
+          const body = cur.script.slice(
+            cur.script.indexOf("{") + 1,
+            cur.script.lastIndexOf("}")
+          );
+          // create function from string
+
+          // eslint-disable-next-line no-new-func
+          acc[scriptName] = new Function(
+            "position",
+            "ctx",
+            "currentState",
+            body
+          );
+        }
+        return acc;
+      }, {});
+      setDrawDict(kuku);
+    });
+  }, []);
 
   return (
     <canvas

@@ -1,5 +1,11 @@
 import AWS from "aws-sdk";
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  Component,
+} from "react";
 import pdfjs from "pdfjs-dist";
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 import "./app-control.css";
@@ -125,6 +131,9 @@ import {
 import { UploadOutlined } from "@ant-design/icons";
 import { PATH } from "../../constants/common";
 import { useLocation } from "react-router-dom";
+import { FunctionAPI } from "../../api/FunctionAPI";
+import { selectUserInfo } from "../../features/Login/LoginSlice";
+import Icon from "@ant-design/icons/lib/components/Icon";
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 const { Option } = Select;
 const { Title } = Typography;
@@ -167,12 +176,14 @@ const AppControl = () => {
   const textEnd = useSelector(selectTextEnd);
   const textSize = useSelector(selectTextSize);
   const textColor = useSelector(selectTextColor);
+  const userInfo = useSelector(selectUserInfo);
   const textBoundary = useSelector(selectTextBoundary);
   const [textMediate, setTextMediate] = useState("");
   const [textSizeMediate, setTextSizeMediate] = useState(3);
   const [colorTextR, setColorTextR] = useState(colorR);
   const [colorTextG, setColorTextG] = useState(colorG);
   const [colorTextB, setColorTextB] = useState(colorB);
+  const [dataFunc, setDataFunc] = useState([]);
   const [textBoundaryMediate, setTextBoundaryMediate] = useState({
     isHave: false,
     width: 1,
@@ -324,14 +335,6 @@ const AppControl = () => {
     transform: `translate(0px, -300px)`,
   };
   const uploadProps = {
-    // defaultFileList: [
-    //   {
-    //     uid: '2',
-    //     name: 'yyy.png',
-    //     status: 'done',
-    //     url: 'http://www.baidu.com/yyy.png'
-    //   }
-    // ],
     accept: ".pdf",
     maxCount: 1,
     showUploadList: true,
@@ -434,9 +437,23 @@ const AppControl = () => {
       }
     },
   };
-  // useEffect(() => {
-  //   const colorPick = `rgba(${colorR},${colorB},${colorG},${opacity})`
-  // }, [colorR, colorB, colorG, opacity])
+  useEffect(() => {
+    FunctionAPI.getAll(userInfo.accessToken).then((res) => {
+      const data = res.data.data.map((data, index) => ({
+        key: data.id,
+        icon: data.icon,
+        script:
+          data.script.indexOf("function ") === -1
+            ? data.script
+            : data.script.slice(
+                data.script.indexOf(" ") + 1,
+                data.script.indexOf("(")
+              ),
+      }));
+      console.log("data", data);
+      setDataFunc(data);
+    });
+  }, []);
   return (
     <>
       {loaded && location.pathname === PATH.CANVAS ? (
@@ -482,6 +499,12 @@ const AppControl = () => {
               defaultValue="drawFree"
             >
               <Row justify="center" gutter={[0, 8]}>
+                {/* {dataFunc.map((data, index) => (
+                  <RadioButtonControl
+                    value={data.script}
+                    icon={<Icon name={data.icon}></Icon>}
+                  ></RadioButtonControl>
+                ))} */}
                 <RadioButtonControl value="drawFree">
                   <IoBrushOutline />
                 </RadioButtonControl>
@@ -491,7 +514,7 @@ const AppControl = () => {
                 <RadioButtonControl value="drawCircle">
                   <RiCheckboxBlankCircleLine />
                 </RadioButtonControl>
-                <RadioButtonControl value="drawTri">
+                <RadioButtonControl value="drawTriangle">
                   <IoTriangleOutline style={{ fontWeight: "bold" }} />
                 </RadioButtonControl>
                 <RadioButtonControl value="drawLine">

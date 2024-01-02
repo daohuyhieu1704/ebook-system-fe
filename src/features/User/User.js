@@ -1,4 +1,5 @@
-import { Typography } from "antd";
+import { FileImageOutlined, MoreOutlined } from "@ant-design/icons";
+import { Button, Tooltip, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
@@ -10,11 +11,12 @@ import {
 } from "../Layout/LayoutSlice";
 import { selectUserInfo } from "../Login/LoginSlice";
 import { FunctionAPI } from "../../api/FunctionAPI";
-import { selectFuncList, setFuncList } from "./FuncSlice";
+import { selectUserList, setUserList } from "./UserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "../Layout/Layout.style";
+import { UserAPI } from "../../api/UserAPI";
 const { Link } = Typography;
-export default function Func() {
+export default function User() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -23,53 +25,52 @@ export default function Func() {
   const [visible, setVisible] = useState(false);
   const isRefetch = useSelector(selectIsRefetch);
   const selectedTab = useSelector(selectSelectedKey);
-  const data = useSelector(selectFuncList);
+  const data = useSelector(selectUserList);
   const userInfo = useSelector(selectUserInfo);
   const columns = [
     {
-      title: "Tên",
-      dataIndex: "name",
-      key: "name",
-      ellipsis: true,
-      render: (text, record) => {
-        return record.script.indexOf("function ") === -1
-          ? "Script không hợp lệ"
-          : record.script.slice(
-              record.script.indexOf(" "),
-              record.script.indexOf("(")
-            );
-      },
+      title: "Username",
+      dataIndex: "username",
+      key: "username",
     },
     {
-      title: "Icon",
-      dataIndex: "icon",
-      key: "icon",
+      title: "Họ tên",
+      dataIndex: "hoten",
+      key: "hoten",
     },
     {
-      title: "Script",
-      dataIndex: "script",
-      key: "script",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
     },
   ];
   const onSuccess = (res) => {
     setLoading(false);
-    const data = res.data.data.map((data, index) => ({
-      key: data.id,
+    console.log("res", res.data);
+    const data = res.data.map((data, index) => ({
+      key: data.username,
       ...data,
     }));
-    dispatch(setFuncList(data));
+    dispatch(setUserList(data));
+    console.log("data", res.data, data);
   };
   const onError = (err) => {
     setLoading(false);
+    console.log("err", err);
     NotificationCustom({
       type: "error",
       message: "Lỗi",
-      description: "Không lấy được danh sách function, thử tải lại trang",
+      description: "Không lấy được danh sách User, thử tải lại trang",
     });
   };
   const getData = () => {
     setLoading(true);
-    FunctionAPI.getAll(userInfo.accessToken)
+    UserAPI.getAll(userInfo.accessToken)
       .then((res) => {
         onSuccess(res);
       })

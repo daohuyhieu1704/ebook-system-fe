@@ -5,7 +5,7 @@ export default class AppConstant {
 export const DRAW_TYPE = {
   RECT: "drawRect",
   CIRCLE: "drawCircle",
-  TRIANGLE: "drawTri",
+  TRIANGLE: "drawTriangle",
   LINE: "drawLine",
   TEXT: "drawText",
 };
