@@ -2,13 +2,9 @@ import axios from "axios";
 import axiosClient from "../helper/axios/axiosClient";
 
 export const FunctionAPI = {
-  getAll(token) {
+  getAll() {
     const url = `${process.env.REACT_APP_ENDPOINT}emp_role/funtion/get_all_func`;
-    return axiosClient.get(url, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    return axiosClient.get(url);
   },
   create(token, data) {
     const url = `${process.env.REACT_APP_ENDPOINT}emp_role/funtion`;

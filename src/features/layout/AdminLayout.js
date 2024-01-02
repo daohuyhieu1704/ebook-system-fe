@@ -21,7 +21,7 @@ import {
   setSelectedRows,
 } from "./LayoutSlice";
 import { useDispatch, useSelector } from "react-redux";
-import AppControl from "../../components/control/app-control";
+import AppControl from "../Canvas/components/control/app-control";
 import colors from "../../theme/colors";
 import CRUDBtnList from "./components/CRUDBtnList";
 

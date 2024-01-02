@@ -1,23 +1,11 @@
 import AWS from "aws-sdk";
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-  Component,
-} from "react";
+import React, { useState, useEffect } from "react";
 import pdfjs from "pdfjs-dist";
 import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 import "./app-control.css";
-import {
-  degrees,
-  PDFDocument,
-  rgb,
-  rotateRectangle,
-  StandardFonts,
-} from "pdf-lib";
+import { PDFDocument, StandardFonts } from "pdf-lib";
 import downloadFile from "downloadjs";
-import AppConstant from "../../constants/AppConstant";
+import AppConstant from "../../../../constants/AppConstant";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectLoaded,
@@ -29,26 +17,18 @@ import {
   setScale,
   selectNumPageCurrent,
   setSrc,
-  setLoaded,
   setLoadedSrc,
   handleRemoveDataCanvasFromLocal,
-} from "../../redux/AppSlice";
+} from "../../../../redux/AppSlice";
 import {
-  Button,
   Col,
-  Dropdown,
-  Input,
   InputNumber,
-  Menu,
   Radio,
   Row,
   Select,
   Slider,
   Typography,
-  Space,
-  Tooltip,
   Upload,
-  Spin,
   Divider,
 } from "antd";
 import {
@@ -61,13 +41,10 @@ import { RiEraserLine, RiCheckboxBlankCircleLine } from "react-icons/ri";
 import {
   AiOutlineUndo,
   AiOutlineRedo,
-  AiOutlineColumnHeight,
   AiOutlineZoomIn,
   AiOutlineZoomOut,
-  AiOutlineRead,
   AiOutlineSave,
   AiOutlineDownload,
-  AiOutlineCompress,
   AiOutlineClear,
   AiOutlineFontSize,
 } from "react-icons/ai";
@@ -75,20 +52,14 @@ import {
   ButtonControl,
   ButtonPicker,
   ModalControl,
-  ModalControlTitle,
-  ModalControlText,
   PagePerToTal,
   RadioButtonControl,
   SelectControl,
   SliderControl,
-  SliderTextControl,
-  DropdownControl,
-  UploadPdf,
   ButtonUpload,
 } from "./app-control.style";
 
-import Modal from "antd/lib/modal/Modal";
-import { CirclePicker, SketchPicker, CompactPicker } from "react-color";
+import { CirclePicker } from "react-color";
 import {
   selectColorB,
   selectColorG,
@@ -102,7 +73,6 @@ import {
   setColorB,
   setColorG,
   setColorR,
-  setFlagDraw,
   setOpacity,
   setRedoState,
   setTypeDraw,
@@ -118,26 +88,20 @@ import {
   selectTextSize,
   selectTextColor,
   selectTextBoundary,
-  selectTextWH,
-  setTextStart,
-  setTextEnd,
   setTextMode,
   setTextSpecify,
   setTextContent,
   setTextSize,
   setTextColor,
-  setTextBoundary,
 } from "./app-controlSlice";
 import { UploadOutlined } from "@ant-design/icons";
-import { PATH } from "../../constants/common";
+import { PATH } from "../../../../constants/common";
 import { useLocation } from "react-router-dom";
-import { FunctionAPI } from "../../api/FunctionAPI";
-import { selectUserInfo } from "../../features/Login/LoginSlice";
-import Icon from "@ant-design/icons/lib/components/Icon";
+import { FunctionAPI } from "../../../../api/FunctionAPI";
+import { selectUserInfo } from "../../../../features/Login/LoginSlice";
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 const { Option } = Select;
 const { Title } = Typography;
-const { TextArea } = Input;
 const albumBucketName = "vermuda-images";
 const folderName = "images";
 const accessKeyId = "AKIAJHCWISM3O4WMSPXA";

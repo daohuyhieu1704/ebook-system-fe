@@ -6,7 +6,7 @@ import {
   selectPdf,
   selectScale,
   setNumPageCurrent,
-} from "../../redux/AppSlice";
+} from "../../../../redux/AppSlice";
 import { selectTypeDraw } from "../control/app-controlSlice";
 import CanvasContainer from "./canvas-container";
 import "./canvas-root.css";

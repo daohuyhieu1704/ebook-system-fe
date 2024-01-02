@@ -10,4 +10,8 @@ export const UserAPI = {
       },
     });
   },
+  loginGuest(data) {
+    const url = `${process.env.REACT_APP_ENDPOINT}emp_role/login_guest`;
+    return axiosClient.post(url, data);
+  },
 };

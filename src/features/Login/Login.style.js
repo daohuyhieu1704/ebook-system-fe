@@ -8,8 +8,8 @@ export const LoginWrapper = styled.div`
   overflow: hidden;
   background-color: ${themeGet("colors.backgroundColor")};
   .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: red;
-    border-color: red;
+    background-color: ${themeGet("colors.primary")};
+    border-color: ${themeGet("colors.primary")};
   }
   //tablet
   @media only screen and (max-width: 1024px) {

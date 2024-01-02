@@ -25,6 +25,7 @@ import colors from "../../theme/colors";
 import { theme } from "../../theme/theme";
 import { GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { UserAPI } from "../../api/UserAPI";
 
 export const Login = () => {
   const [form] = Form.useForm();
@@ -91,12 +92,9 @@ export const Login = () => {
       console.log(data);
       setLoading(false);
 
-      const postResponse = await axiosPost(
-        `${process.env.REACT_APP_ENDPOINT}emp_role/login`,
-        {
-          gmail: data.user?.email,
-        }
-      );
+      const postResponse = await UserAPI.loginGuest({
+        gmail: data.user?.fullname,
+      });
 
       const dataLogin = postResponse.data;
 
@@ -106,8 +104,8 @@ export const Login = () => {
         loginSuccess({
           username: data.user?.email,
           fullname: data.user?.fullname,
-          accessToken: data.user?.access_token,
-          remember: true,
+          accessToken: dataLogin?.access_token,
+          remember: !!form.getFieldValue("remember"),
           role: 1,
         })
       );
@@ -208,7 +206,9 @@ export const Login = () => {
               />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked">
-              <Checkbox style={{ color: "red" }}>Nhớ mật khẩu?</Checkbox>
+              <Checkbox style={{ color: colors.primary }}>
+                Nhớ mật khẩu?
+              </Checkbox>
             </Form.Item>
 
             <Form.Item

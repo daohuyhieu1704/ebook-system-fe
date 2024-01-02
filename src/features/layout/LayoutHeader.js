@@ -51,7 +51,6 @@ import { MANAGEMENT_MENU, PATH } from "../../constants/common";
 import moment from "moment";
 import FuncForm from "../Func/FuncForm";
 import { useDispatch, useSelector } from "react-redux";
-import AppControl from "../../components/control/app-control";
 const { confirm } = Modal;
 const { Text, Title } = Typography;
 

@@ -118,18 +118,30 @@ export default function CRUDBtnList() {
       {hasCRUD.includes(location.pathname) ? (
         <Row justify="center" align="middle" style={{ marginTop: "1rem" }}>
           <Row>
-            <ActionItem onClick={drawerOnOpenCreate}>
-              <Typography style={{ color: "green" }}>Thêm</Typography>
+            <ActionItem
+              onClick={drawerOnOpenCreate}
+              disabled={userInfo.role !== 0}
+            >
+              <Typography
+                style={{
+                  color: userInfo.role !== 0 ? "gray" : "green",
+                }}
+              >
+                Thêm
+              </Typography>
             </ActionItem>
           </Row>
           <Row>
             <ActionItem
               onClick={drawerOnOpenUpdate}
-              disabled={selectedRows.length !== 1}
+              disabled={selectedRows.length !== 1 && userInfo.role !== 0}
             >
               <Typography
                 style={{
-                  color: selectedRows.length !== 1 ? "gray" : "blue",
+                  color:
+                    selectedRows.length !== 1 && userInfo.role !== 0
+                      ? "gray"
+                      : "blue",
                 }}
               >
                 Sửa

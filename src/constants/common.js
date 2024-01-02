@@ -55,13 +55,13 @@ export const MANAGEMENT_MENU = [
   {
     path: PATH.FUNC,
     name: "Function",
-    permissions: [ROLE.ADMIN, ROLE.USER],
+    permissions: [ROLE.ADMIN],
     icon: <PieChartOutlined />,
   },
   {
     path: PATH.USER,
     name: "User",
-    permissions: [ROLE.ADMIN, ROLE.USER],
+    permissions: [ROLE.ADMIN],
     icon: <PieChartOutlined />,
   },
 ];
