@@ -17,7 +17,7 @@ import CanvasRoot from "./components/canvas/canvas-root";
 import { selectTypeDraw } from "./components/control/app-controlSlice";
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-// AppConstant.CANVAS_SCALE =
+// AppConstant.CANVAS_SCALE
 //   localStorage.getItem("canvas-scale") || AppConstant.CANVAS_SCALE;
 
 export default function CanvasGeneral() {

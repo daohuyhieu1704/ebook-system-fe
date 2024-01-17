@@ -323,7 +323,7 @@ const AppControl = () => {
       console.log("DEBUG file type", file.type);
       const current = new Date().getTime();
       const objParams = {
-        Bucket: "vermuda-images",
+        Bucket: "dhh-images",
         Key: folderName + "/" + current + "_" + file.name,
         Body: file,
         ACL: "public-read",
