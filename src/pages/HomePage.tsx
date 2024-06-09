@@ -1,0 +1,23 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks";
+import { PATH } from "../constants/common";
+import { selectUserInfo } from "../features/login/loginSlice";
+const HomePage = () => {
+  const navigate = useNavigate();
+  const userInfo = useAppSelector(selectUserInfo);
+
+  useEffect(() => {
+    switch (userInfo?.role) {
+      case 0:
+        navigate(PATH.EMPLOYEES);
+        break;
+      case 1:
+        navigate(PATH.NOTIFICATION);
+        break;
+    }
+  }, []);
+  return <></>;
+};
+
+export default HomePage;
