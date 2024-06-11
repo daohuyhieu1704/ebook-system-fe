@@ -54,7 +54,7 @@ import type { UploadFile } from "antd/es/upload/interface";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { selectUserInfo } from "../login/loginSlice";
-import { notificationAPI } from "../../api/NotificationAPI";
+import { notificationAPI } from "../../api/OrderAPI";
 import { TweenOneGroup } from "rc-tween-one";
 import { overflow } from "styled-system";
 import { CustomTagSelect, DatePickerContainer } from "./Notification.style";

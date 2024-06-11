@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { selectUserInfo } from "../login/loginSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CloseOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
-import { ChuyenVienAPI } from "../../api/ChuyenVienAPI";
+import { ChuyenVienAPI } from "../../api/EmailAPI";
 import { selectDataEmp } from "../EmployeeManager/EmployeeManagerSlice";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import {

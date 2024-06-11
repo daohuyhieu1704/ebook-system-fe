@@ -1,7 +1,7 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { DatePicker, Form, Input, Select, Spin, Switch } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { ChuyenVienAPI } from "../../api/ChuyenVienAPI";
+import { ChuyenVienAPI } from "../../api/EmailAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import { ROLE } from "../../constants/common";

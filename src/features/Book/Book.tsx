@@ -1,7 +1,7 @@
 import { Button, Row, Tag, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { BookingAPI } from "../../api/BookingAPI";
+import { BookAPI } from "../../api/BookAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import TableLayout from "../../components/TableLayout/TableLayout";
@@ -14,18 +14,18 @@ import {
   setIsRefetch,
   setSelectedRows,
 } from "../layout/layoutSlice";
-import { selectDataBooking, setDataBooking } from "./BookingSlice";
+import { selectDataBook, setDataBook } from "./BookSlice";
 import { selectUserInfo } from "../login/loginSlice";
 import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";
 
-export default function Booking() {
+export default function Book() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
   const [count, setCount] = useState<number>();
   const [offset, setOffset] = useState<number>(0);
   const [visible, setVisible] = useState(false);
-  const data = useAppSelector(selectDataBooking);
+  const data = useAppSelector(selectDataBook);
   const [dataSrc, setDataSrc] = useState<any[]>([]);
   const mode = useAppSelector(selectMode);
   const userInfo = useAppSelector(selectUserInfo);
@@ -96,7 +96,7 @@ export default function Booking() {
         STT: index + 1,
         key: data.id_dangky,
       }));
-    dispatch(setDataBooking(dataSrc));
+    dispatch(setDataBook(dataSrc));
     NotificationCustom({
       type: "success",
       message: "Thành công",
@@ -112,7 +112,7 @@ export default function Booking() {
     });
   };
   const getData = () => {
-    BookingAPI.getAll(`${userInfo.accessToken}`)
+    BookAPI.getAll(`${userInfo.accessToken}`)
       .then((res) => {
         onSuccess(res);
       })

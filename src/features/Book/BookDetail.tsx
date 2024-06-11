@@ -8,19 +8,15 @@ import {
 } from "../layout/layoutSlice";
 import { selectUserInfo } from "../login/loginSlice";
 import { Avatar, Button, Col, Divider, Row, Typography } from "antd";
-import { EllipsisOutlined, HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import TableLayout from "../../components/TableLayout/TableLayout";
-import { SinhVienAPI } from "../../api/SinhVienAPI";
 import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/common";
 import { theme } from "../../theme/theme";
 import { useDispatch } from "react-redux";
-import VpDetail from "../StudentsManager/components/VpDetail";
-import { CsvcAPI } from "../../api/CsvcAPI";
-import { DashboardAPI } from "../../api/DashboardAPI";
 
-export default function BookingDetail() {
+export default function BookDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const selectedRows = useAppSelector(selectSelectedRows);
@@ -32,47 +28,9 @@ export default function BookingDetail() {
   const [dataCsvc, setDataCsvc] = useState<any[]>([]);
   const [currSemester, setCurrSemester] = useState<string>();
   function changeHandler(item: any) {
-    navigate(PATH.STUDENTS);
     dispatch(openDrawerBottom());
     dispatch(setSelectedRows([item]));
   }
-  const columnViPham: object[] = [
-    {
-      title: "STT",
-      dataIndex: "STT",
-      key: "STT",
-      width: "40px",
-    },
-    {
-      title: "MSSV",
-      dataIndex: "mssv",
-      key: "mssv",
-    },
-    {
-      title: "Thời gian",
-      dataIndex: "at",
-      key: "at",
-    },
-    {
-      title: "Mức độ",
-      key: "mucdo",
-      dataIndex: "mucdo",
-      width: "70px",
-    },
-    {
-      title: "Lí do",
-      key: "title",
-      dataIndex: "title",
-      ellipsis: "true",
-      render: (data: string) => {
-        return (
-          <Row justify="space-between" align="middle">
-            <Typography.Text>{data}</Typography.Text>
-          </Row>
-        );
-      },
-    },
-  ];
   const StuColumns: object[] = [
     {
       key: "STT",
@@ -173,57 +131,9 @@ export default function BookingDetail() {
   ];
   useEffect(() => {
     console.log(selectedRows[0]);
-    DashboardAPI.getCurrentSemester()
-      .then((res) => {
-        setCurrSemester(res.data.curr_semester);
-      })
-      .catch((err) => {});
-    SinhVienAPI.GetStuInRoom(
-      {
-        hocki: currSemester ? currSemester : "20232",
-        phong: selectedRows[0]?.id_phong,
-      },
-      `${userInfo.accessToken}`
-    )
-      .then((res) => {
-        setDataStu(
-          res.data.data.map((item: any, index: number) => ({
-            ...item,
-            key: item.mssv,
-            STT: index + 1,
-          }))
-        );
-      })
-      .catch((err) => {});
-    CsvcAPI.getAllRoomFacility(`${userInfo.accessToken}`)
-      .then((res) => {
-        setDataCsvc(
-          res.data.data.map((item: any, index: number) => ({
-            ...item,
-            key: item.id_csvc,
-            STT: index + 1,
-          }))
-        );
-        console.log(res.data.data);
-      })
-      .catch((err) => {});
   }, [selectedRows]);
   useEffect(() => {
     if (dataStu.length > 0) {
-      for (let student of dataStu) {
-        SinhVienAPI.getViolationSV(student.mssv, `${userInfo.accessToken}`)
-          .then((data: any) => {
-            setDataVp([
-              ...dataVp,
-              ...data.data.data.map((item: any, indexA: number) => ({
-                ...item,
-                key: item.id_phat,
-                at: new Date(parseInt(item.at)).toLocaleString(),
-              })),
-            ]);
-          })
-          .catch((err: any) => {});
-      }
       setDataVp(
         dataVp.map((item: any, index: number) => ({
           ...item,

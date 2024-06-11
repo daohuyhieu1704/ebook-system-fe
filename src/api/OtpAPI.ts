@@ -1,7 +1,6 @@
-import { axiosPost } from "../helper/axios";
 import axiosClient from "../helper/axios/axiosClient";
 
-export const CsvcAPI = {
+export const OtpAPI = {
   getAllMaterialFacility(token: string) {
     const url = `${process.env.REACT_APP_ENDPOINT}emp_role/material-facility/get-all-material-facilities`;
     return axiosClient.get(url, {

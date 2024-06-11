@@ -1,4 +1,4 @@
-import { Col, DatePicker, Form, Input, InputNumber, Row, Select } from "antd";
+import { DatePicker, Form, Input, InputNumber } from "antd";
 import React, { useEffect, useRef } from "react";
 import {
   closeDrawerRight,
@@ -9,14 +9,15 @@ import {
   setIsRefetch,
 } from "../layout/layoutSlice";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
-import { BookingAPI } from "../../api/BookingAPI";
+import { BookAPI } from "../../api/BookAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectUserInfo } from "../login/loginSlice";
 
 type FormProps = {
   formName: string;
 };
-export default function TimeRegisterForm(props: FormProps) {
+
+export default function BookingForm(props: FormProps) {
   const { formName } = props;
   const inputRef = useRef(null);
   const dispatch = useAppDispatch();
@@ -64,9 +65,9 @@ export default function TimeRegisterForm(props: FormProps) {
       //     onSubmitError(err);
       //   });
     } else {
-      BookingAPI.create(
+      BookAPI.create(
         {
-          hk: `${values.nh}${values.hk}`,
+          hk: values.hk,
           start: new Date(values.start).getTime(),
           end: new Date(values.end).getTime(),
         },
@@ -119,27 +120,11 @@ export default function TimeRegisterForm(props: FormProps) {
   }, [drawerRightVisible]);
   return (
     <Form form={form} name={formName} onFinish={onFinish} layout="vertical">
-      <Row>
-        <Col span={8}>
-          <Form.Item name="nh" label="Năm học" rules={[{ required: true }]}>
-            <InputNumber size="large" ref={inputRef} />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item name="hk" label="Học kì" rules={[{ required: true }]}>
-            <InputNumber size="large" ref={inputRef} />
-          </Form.Item>
-        </Col>
-      </Row>
-      <Form.Item name="type" label="Loại" rules={[{ required: true }]}>
-        <Select size="large">
-          <Select.Option value="1">Ưu tiên</Select.Option>
-          <Select.Option value="2">Thường</Select.Option>
-        </Select>
+      <Form.Item name="hk" label="Học kì" rules={[{ required: true }]}>
+        <InputNumber size="large" ref={inputRef} style={{ zIndex: 9999 }} />
       </Form.Item>
       <Form.Item name="start" label="Bắt đầu" rules={[{ required: true }]}>
         <DatePicker
-          size="large"
           getPopupContainer={(triggerNode: any) => {
             return triggerNode.parentElement;
           }}
@@ -149,7 +134,6 @@ export default function TimeRegisterForm(props: FormProps) {
       </Form.Item>
       <Form.Item name="end" label="Kết thúc" rules={[{ required: true }]}>
         <DatePicker
-          size="large"
           getPopupContainer={(triggerNode: any) => {
             return triggerNode.parentElement;
           }}

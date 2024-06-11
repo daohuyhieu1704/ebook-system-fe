@@ -1,7 +1,7 @@
-import Booking from "../features/Booking/Booking";
+import Book from "../features/Book/Book";
 
 const AccountantPage = () => {
-  return <Booking />;
+  return <Book />;
 };
 
 export default AccountantPage;

@@ -18,7 +18,7 @@ import { PATH } from "../../constants/common";
 import { theme } from "../../theme/theme";
 import { useDispatch } from "react-redux";
 import VpDetail from "../StudentsManager/components/VpDetail";
-import { CsvcAPI } from "../../api/CsvcAPI";
+import { CsvcAPI } from "../../api/OtpAPI";
 import { DashboardAPI } from "../../api/DashboardAPI";
 
 export default function RoomDetail() {

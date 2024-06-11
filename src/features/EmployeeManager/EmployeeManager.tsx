@@ -2,7 +2,7 @@ import { Button, Modal, Switch } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ChuyenVienAPI } from "../../api/ChuyenVienAPI";
+import { ChuyenVienAPI } from "../../api/EmailAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import TableLayout from "../../components/TableLayout/TableLayout";

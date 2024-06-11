@@ -1,7 +1,7 @@
 import { Avatar, Badge, Button, Col, Row, Switch, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { FaqsAPI } from "../../api/FaqsAPI";
+import { FaqsAPI } from "../../api/TemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import TableLayout from "../../components/TableLayout/TableLayout";

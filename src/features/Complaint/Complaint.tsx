@@ -22,7 +22,7 @@ import { selectUserInfo } from "../login/loginSlice";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import QnFbModal from "./QnFbModal";
 import { rolePair } from "../../constants/common";
-import { ComplainAPI } from "../../api/ComplainAPI";
+import { ComplainAPI } from "../../api/OrderAPI";
 import { useLocation } from "react-router-dom";
 
 export default function QuestionFeedback() {

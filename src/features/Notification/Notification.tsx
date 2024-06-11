@@ -10,7 +10,7 @@ import {
 import { selectUserInfo } from "../login/loginSlice";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import { Avatar, Badge, Button, Col, Row, Switch, Typography } from "antd";
-import { notificationAPI } from "../../api/NotificationAPI";
+import { notificationAPI } from "../../api/OrderAPI";
 import NotificationModal from "./NotificationModal";
 import {
   selectIsRefetch,

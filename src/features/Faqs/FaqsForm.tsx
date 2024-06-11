@@ -1,6 +1,6 @@
 import { Form, Input, Switch } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { FaqsAPI } from "../../api/FaqsAPI";
+import { FaqsAPI } from "../../api/TemplateAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import {

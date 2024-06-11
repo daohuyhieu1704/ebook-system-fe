@@ -11,8 +11,8 @@ import {
 import { selectDataEmp } from "../../features/EmployeeManager/EmployeeManagerSlice";
 import { NotificationCustom } from "../NotificationCustom/NotificationCustom";
 import { PATH } from "../../constants/common";
-import { ChuyenVienAPI } from "../../api/ChuyenVienAPI";
-import { notificationAPI } from "../../api/NotificationAPI";
+import { ChuyenVienAPI } from "../../api/EmailAPI";
+import { notificationAPI } from "../../api/OrderAPI";
 import { Button, Grid, Modal, Switch } from "antd";
 import { Col, Divider, Row } from "antd";
 import { selectUserInfo } from "../../features/login/loginSlice";
