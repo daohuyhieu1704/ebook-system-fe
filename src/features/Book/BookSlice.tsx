@@ -20,6 +20,6 @@ export const BookSlice = createSlice({
 
 export const { setDataBook } = BookSlice.actions;
 
-export const selectDataBook = (state: any) => state.booking.data;
+export const selectDataBook = (state: any) => state.book.data;
 
 export default BookSlice.reducer;

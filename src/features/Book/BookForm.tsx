@@ -65,34 +65,34 @@ export default function BookingForm(props: FormProps) {
       //     onSubmitError(err);
       //   });
     } else {
-      BookAPI.create(
-        {
-          hk: values.hk,
-          start: new Date(values.start).getTime(),
-          end: new Date(values.end).getTime(),
-        },
-        `${userInfo.accessToken}`
-      )
-        .then((res: any) => {
-          console.log("hc res: ", res.data);
-          dispatch(setIsLoadingSubmit(false));
-          const { message } = res.data;
-          NotificationCustom({
-            type: "success",
-            message: "Thành công",
-            description: `${message}`,
-          });
-          onSubmitSuccess();
-        })
-        .catch((err: any) => {
-          dispatch(setIsLoadingSubmit(false));
-          NotificationCustom({
-            type: "error",
-            message: "Error",
-            description: err.data?.message,
-          });
-          onSubmitError(err);
-        });
+      // BookAPI.createBook(
+      //   {
+      //     hk: values.hk,
+      //     start: new Date(values.start).getTime(),
+      //     end: new Date(values.end).getTime(),
+      //   },
+      //   `${userInfo.accessToken}`
+      // )
+      //   .then((res: any) => {
+      //     console.log("hc res: ", res.data);
+      //     dispatch(setIsLoadingSubmit(false));
+      //     const { message } = res.data;
+      //     NotificationCustom({
+      //       type: "success",
+      //       message: "Thành công",
+      //       description: `${message}`,
+      //     });
+      //     onSubmitSuccess();
+      //   })
+      //   .catch((err: any) => {
+      //     dispatch(setIsLoadingSubmit(false));
+      //     NotificationCustom({
+      //       type: "error",
+      //       message: "Error",
+      //       description: err.data?.message,
+      //     });
+      //     onSubmitError(err);
+      //   });
     }
   };
   const onFill = (values: any) => {

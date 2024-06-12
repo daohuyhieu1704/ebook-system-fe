@@ -107,7 +107,9 @@ export const Login = () => {
               <Input.Password size={"large"} placeholder="Mật khẩu" />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked">
-              <Checkbox style={{ color: "red" }}>Nhớ mật khẩu?</Checkbox>
+              <Checkbox style={{ color: colors.primary }}>
+                Nhớ mật khẩu?
+              </Checkbox>
             </Form.Item>
 
             <Form.Item

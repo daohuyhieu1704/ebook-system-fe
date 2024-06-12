@@ -1,47 +1,47 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {
-  TeamOutlined,
-  NotificationOutlined,
-  QuestionOutlined,
-  QuestionCircleOutlined,
-  HomeOutlined,
-} from "@ant-design/icons";
+import { TeamOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 
 export const PATH = Object.freeze({
   LOGIN: "/login",
   HOME: "/",
-  NOTIFICATION: "/notification",
   BOOK: "/book",
+  CATEGORY: "/category",
   PROFILE: "/profile",
+  EMPLOYEES: "/employees",
   NOT_FOUND: "*",
 });
 
 export const ROLE = Object.freeze({
-  ADMIN: 1,
-  CUSTOM: 2,
+  admin: 1,
+  shop: 2,
 });
-export const rolePair = Object.entries(ROLE);
+export const rolePair: [string, number][] = Object.entries(ROLE);
 export const ROUTES = Object.freeze({
   ADMIN_PRIVATE: [
     {
       path: PATH.HOME,
       element: "HomePage",
-      permission: [ROLE.ADMIN, ROLE.CUSTOM],
+      permission: [ROLE.admin, ROLE.shop],
     },
     {
-      path: PATH.NOTIFICATION,
-      element: "NotificationPage",
-      permission: [ROLE.ADMIN, ROLE.CUSTOM],
+      path: PATH.CATEGORY,
+      element: "CategoryPage",
+      permission: [ROLE.admin],
     },
     {
       path: PATH.BOOK,
       element: "BookPage",
-      permission: [ROLE.ADMIN],
+      permission: [ROLE.admin],
     },
     {
       path: PATH.PROFILE,
       element: "ProfilePage",
-      permission: [ROLE.ADMIN, ROLE.CUSTOM],
+      permission: [ROLE.admin, ROLE.shop],
+    },
+    {
+      path: PATH.EMPLOYEES,
+      element: "EmployeeManagerPage",
+      permission: [ROLE.admin],
     },
   ],
   PUBLIC: [
@@ -58,24 +58,14 @@ enum SearchType {
 
 export const MANAGEMENT_MENU = [
   {
-    path: PATH.NOTIFICATION,
-    name: "Thông báo",
-    permissions: [ROLE.ADMIN, ROLE.CUSTOM],
-    icon: <NotificationOutlined />,
+    path: PATH.CATEGORY,
+    name: "Thể loại",
+    permissions: [ROLE.admin],
+    icon: <TeamOutlined />,
     filter: [
       {
         key: 0,
-        label: "Loại",
-        type: SearchType.select,
-      },
-      {
-        key: 1,
-        label: "Tiêu đề",
-        type: SearchType.input,
-      },
-      {
-        key: 2,
-        label: "Nội dung",
+        label: "Tên",
         type: SearchType.input,
       },
     ],
@@ -84,7 +74,7 @@ export const MANAGEMENT_MENU = [
   {
     path: PATH.BOOK,
     name: "Sách",
-    permissions: [ROLE.ADMIN],
+    permissions: [ROLE.admin],
     icon: <QuestionCircleOutlined />,
     filter: [
       {
@@ -96,6 +86,25 @@ export const MANAGEMENT_MENU = [
         key: 1,
         label: "Câu trả lời",
         type: SearchType.select,
+      },
+    ],
+    children: null,
+  },
+  {
+    path: PATH.EMPLOYEES,
+    name: "Chuyên viên",
+    permissions: [ROLE.admin],
+    icon: <TeamOutlined />,
+    filter: [
+      {
+        key: 0,
+        label: "Tên",
+        type: SearchType.input,
+      },
+      {
+        key: 1,
+        label: "email",
+        type: SearchType.input,
       },
     ],
     children: null,
@@ -116,7 +125,7 @@ export const LOCAL_STORAGE_ITEM = Object.freeze({
   ROLE: "role",
 });
 
-export const hasHeaderBtn = [PATH.NOTIFICATION];
+export const hasHeaderBtn = [PATH.EMPLOYEES];
 export const notHasSearchFilter = [PATH.PROFILE];
 
 export const hasModeView = [PATH.BOOK];

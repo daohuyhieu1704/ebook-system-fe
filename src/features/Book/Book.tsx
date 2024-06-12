@@ -17,6 +17,7 @@ import {
 import { selectDataBook, setDataBook } from "./BookSlice";
 import { selectUserInfo } from "../login/loginSlice";
 import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";
+import { ROLE, rolePair } from "../../constants/common";
 
 export default function Book() {
   const dispatch = useAppDispatch();
@@ -45,26 +46,60 @@ export default function Book() {
       align: "right",
     },
     {
-      title: "Học kì",
-      dataIndex: "hk",
-      key: "hk",
-      width: 150,
+      title: "Tên",
+      dataIndex: "Title",
+      key: "Title",
+      ellipsis: true,
+      width: "250px",
     },
     {
-      title: "Bắt đầu",
-      dataIndex: "start",
-      key: "start",
-      render: (data: string) => new Date(parseInt(data)).toLocaleString(),
+      title: "Tác giả",
+      dataIndex: "Author",
+      key: "Author",
+      width: "150px",
+      render: (value: any, item: any) => {
+        return (
+          <Row justify="space-between">
+            <Typography.Text ellipsis={true} style={{ width: "100px" }}>
+              {value.name}
+            </Typography.Text>
+          </Row>
+        );
+      },
     },
     {
-      title: "Kết thúc",
-      dataIndex: "end",
-      key: "end",
+      title: "Thể loại",
+      dataIndex: "Category",
+      key: "Category",
+      width: "150px",
+      render: (value: any, item: any) => {
+        return (
+          <Row justify="space-between">
+            <Typography.Text ellipsis={true} style={{ width: "100px" }}>
+              {value.name}
+            </Typography.Text>
+          </Row>
+        );
+      },
+    },
+    {
+      dataIndex: "Price",
+      key: "Price",
+      align: "right",
+      title: "Giá",
+      width: "100px",
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "Description",
+      key: "Description",
+      ellipsis: true,
+      width: "200px",
       render: (value: string, item: any) => {
         return (
           <Row justify="space-between">
-            <Typography.Text>
-              {new Date(parseInt(value)).toLocaleString()}
+            <Typography.Text ellipsis={true} style={{ width: "180px" }}>
+              {value}
             </Typography.Text>
             <ButtonFeature
               value={value}
@@ -75,26 +110,20 @@ export default function Book() {
         );
       },
     },
-    // {
-    //     title: '',
-    //     dataIndex: 'options',
-    //     key: 'paid',
-    //     align: 'center',
-    //     width: 150,
-    //     render: (value: any, item: any) => {
-    //         return <ButtonFeature value={value} item={item} />
-    //     }
-    // },
   ];
   const onSuccess = (res: any) => {
-    console.log(res);
     setLoading(false);
+    console.log("res", res);
     const dataSrc = res.data?.data
       .reverse()
       .map((data: any, index: number) => ({
-        ...data,
         STT: index + 1,
-        key: data.id_dangky,
+        key: data.id,
+        Description: data.description,
+        Title: data.title,
+        Price: data.price,
+        Author: data.Author,
+        Category: data.Category,
       }));
     dispatch(setDataBook(dataSrc));
     NotificationCustom({
@@ -112,13 +141,21 @@ export default function Book() {
     });
   };
   const getData = () => {
-    BookAPI.getAll(`${userInfo.accessToken}`)
-      .then((res) => {
-        onSuccess(res);
-      })
-      .catch((err) => {
-        onError(err);
-      });
+    console.log("userInfo", userInfo);
+    if (!userInfo) return;
+    setLoading(true);
+    const role = userInfo.role === "1" ? ROLE.admin : ROLE.shop;
+    if (role === ROLE.admin) {
+      BookAPI[role]
+        .getAllBooks(`${userInfo.accessToken}`)
+        .then((res) => {
+          onSuccess(res);
+        })
+        .catch((err) => {
+          onError(err);
+        });
+    } else {
+    }
   };
   useEffect(() => {
     getData();

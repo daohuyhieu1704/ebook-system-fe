@@ -53,38 +53,7 @@ export default function ButtonFeature({
 
   const deleteItem: any = {};
 
-  const hideItem: any = {
-    [PATH.NOTIFICATION]: () => {
-      return new Promise((resolve, reject) => {
-        dispatch(setIsLoadingSubmit(true));
-        selectedRows.forEach((element) => {
-          if (element.deleted === 1) {
-            notificationAPI
-              .activate(element?.id_thongbao, `${userInfo.accessToken}`)
-              .then((data) => {
-                hideSuccess();
-                resolve(data);
-              })
-              .catch((error) => {
-                hideError(error);
-                reject(error);
-              });
-          } else {
-            notificationAPI
-              .deactivate(element?.id_thongbao, `${userInfo.accessToken}`)
-              .then((data) => {
-                hideSuccess();
-                resolve(data);
-              })
-              .catch((error) => {
-                hideError(error);
-                reject(error);
-              });
-          }
-        });
-      });
-    },
-  };
+  const hideItem: any = {};
 
   const drawerOnOpenUpdate = () => {
     dispatch(setIsUpdateForm(true));

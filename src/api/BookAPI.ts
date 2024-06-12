@@ -1,26 +1,34 @@
+import { ROLE } from "../constants/common";
 import axiosClient from "../helper/axios/axiosClient";
 
 export const BookAPI = {
-  getAll(token: string) {
-    const url = `${process.env.REACT_APP_ENDPOINT}emp_role/room/get_regist_time`;
-    return axiosClient.get(url, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-  },
-  create(
-    data: {
-      hk: string;
-      start: number;
-      end: number;
+  [ROLE.admin]: {
+    getAllBooks(token: string) {
+      const url = `${process.env.REACT_APP_ENDPOINT}v1/api/book/admin/getall-books`;
+      return axiosClient.get(url, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
     },
-    token: string
-  ) {
-    const url = `${process.env.REACT_APP_ENDPOINT}emp_role/room/create_regist_time`;
-    const headers = {
-      authorization: `Bearer ${token}`,
-    };
-    return axiosClient.post(url, data, { headers });
+    createBook(
+      data: {
+        title: string;
+        description: string;
+        image: string;
+        price: number;
+        author_ID: string;
+        category_ID: string;
+        inventory_ID: string;
+      },
+      token: string
+    ) {
+      const url = `${process.env.REACT_APP_ENDPOINT}v1/api/book/create`;
+      const headers = {
+        authorization: `Bearer ${token}`,
+      };
+      return axiosClient.post(url, data, { headers });
+    },
   },
+  [ROLE.shop]: {},
 };

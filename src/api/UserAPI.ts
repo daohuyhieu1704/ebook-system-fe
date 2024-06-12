@@ -23,9 +23,16 @@ export const UserAPI = {
     },
   },
   admin: {
-    signUp(data: { full_name: string; email: string; password: string }) {
+    signUp(
+      data: { full_name: string; email: string; password: string },
+      token: string
+    ) {
       const url = `${process.env.REACT_APP_ENDPOINT}v1/api/user/admin/create-account`;
-      return axiosPost(url, data);
+      return axiosClient.post(url, data, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
     },
     getAllAccount(token: string) {
       const url = `${process.env.REACT_APP_ENDPOINT}v1/api/user/admin/getall-account`;
@@ -48,6 +55,14 @@ export const UserAPI = {
           },
         }
       );
+    },
+    updateAccount(data: any, token: string) {
+      const url = `${process.env.REACT_APP_ENDPOINT}v1/api/user/admin/update-account`;
+      return axiosClient.patch(url, data, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
     },
   },
 };

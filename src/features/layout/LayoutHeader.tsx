@@ -43,7 +43,8 @@ import { PATH } from "../../constants/common";
 import NotificationForm from "../Notification/NotificationForm";
 import SearchFilter from "./components/SearchFilter";
 import CRUDButtonList from "./components/CRUDButtonList";
-import BookingDetail from "../Book/BookDetail";
+import BookDetail from "../Book/BookDetail";
+import EmployeeManagerForm from "../EmployeeManager/EmployeeManagerForm";
 const { confirm } = Modal;
 const { Text, Title } = Typography;
 
@@ -80,17 +81,17 @@ export const LayoutHeader = () => {
 
   const details: DetailType = {
     [PATH.BOOK]: {
-      detailTitle: "Chi tiết lịch đặt phòng",
-      cpnRender: <BookingDetail />,
-      cpnName: "Booking",
+      detailTitle: "Chi tiết sách",
+      cpnRender: <BookDetail />,
+      cpnName: "Book",
     },
   };
 
   const forms: FormsType = {
-    [PATH.NOTIFICATION]: {
-      formTitle: !isUpdateForm ? "Tạo thông báo" : "Cập nhật thông báo",
-      formRender: <NotificationForm formName={"Thông báo"} />,
-      formName: "Thông báo",
+    [PATH.EMPLOYEES]: {
+      formTitle: !isUpdateForm ? "Tạo nhân viên" : "Sửa nhân viên",
+      formRender: <EmployeeManagerForm formName={"Employees"} />,
+      formName: "Employees",
     },
   };
 

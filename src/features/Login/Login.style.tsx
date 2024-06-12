@@ -1,15 +1,15 @@
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
-import { Checkbox } from 'antd';
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
+import { Checkbox } from "antd";
 
 export const LoginWrapper = styled.div`
   height: 100vh;
   display: flex;
   overflow: hidden;
-  background-color: ${themeGet('colors.backgroundColor')};
+  background-color: ${themeGet("colors.backgroundColor")};
   .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: red;
-    border-color: red;
+    background-color: ${themeGet("colors.primary")};
+    border-color: ${themeGet("colors.primary")};
   }
   //tablet
   @media only screen and (max-width: 1024px) {
@@ -26,7 +26,7 @@ export const ImgContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${themeGet('colors.backgroundColor')};
+  background-color: ${themeGet("colors.backgroundColor")};
 
   img {
     width: 90%;
@@ -52,7 +52,7 @@ export const LoginFormWrapper = styled.div`
   padding: 2rem;
   display: flex;
   align-items: center;
-  background-color: ${themeGet('colors.gray')};
+  background-color: ${themeGet("colors.gray")};
   justify-content: center;
 
   .login-btn {
@@ -65,17 +65,17 @@ export const LoginFormWrapper = styled.div`
     height: 460px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 3rem;
-    background-color: ${themeGet('colors.white')};
+    background-color: ${themeGet("colors.white")};
     border-radius: 10px;
     .ant-input-affix-wrapper,
     .input-username {
       height: 50px;
-      background-color: ${themeGet('colors.gray')};
+      background-color: ${themeGet("colors.gray")};
     }
     .ant-input {
-      background-color: ${themeGet('colors.gray')};
+      background-color: ${themeGet("colors.gray")};
       &:focus {
-        background-color: ${themeGet('colors.gray')};
+        background-color: ${themeGet("colors.gray")};
       }
     }
     //tablet
@@ -106,7 +106,7 @@ export const LoginFormTitle = styled.h1`
   margin: auto;
   margin-bottom: 2rem;
   text-align: center;
-  color: ${themeGet('colors.primary')};
+  color: ${themeGet("colors.primary")};
   font-weight: 600;
 
   //tablet
