@@ -14,19 +14,20 @@ import {
   setIsRefetch,
   setSelectedRows,
 } from "../layout/layoutSlice";
-import { selectDataBook, setDataBook } from "./BookSlice";
+import { selectDataAuthor, setDataAuthor } from "./AuthorSlice";
 import { selectUserInfo } from "../login/loginSlice";
 import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";
 import { ROLE, rolePair } from "../../constants/common";
+import { AuthorAPI } from "../../api/AuthorAPI";
 
-export default function Book() {
+export default function Author() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
   const [count, setCount] = useState<number>();
   const [offset, setOffset] = useState<number>(0);
   const [visible, setVisible] = useState(false);
-  const data = useAppSelector(selectDataBook);
+  const data = useAppSelector(selectDataAuthor);
   const [dataSrc, setDataSrc] = useState<any[]>([]);
   const mode = useAppSelector(selectMode);
   const userInfo = useAppSelector(selectUserInfo);
@@ -47,50 +48,13 @@ export default function Book() {
     },
     {
       title: "Tên",
-      dataIndex: "title",
-      key: "title",
+      dataIndex: "name",
+      key: "name",
       ellipsis: true,
       width: "200px",
     },
     {
-      title: "Tác giả",
-      dataIndex: "Author",
-      key: "Author",
-      width: "200px",
-      render: (value: any, item: any) => {
-        return (
-          <Row justify="space-between">
-            <Typography.Text ellipsis={true} style={{ width: "100px" }}>
-              {value.name}
-            </Typography.Text>
-          </Row>
-        );
-      },
-    },
-    {
-      title: "Thể loại",
-      dataIndex: "Category",
-      key: "Category",
-      width: "150px",
-      render: (value: any, item: any) => {
-        return (
-          <Row justify="space-between">
-            <Typography.Text ellipsis={true} style={{ width: "100px" }}>
-              {value.name}
-            </Typography.Text>
-          </Row>
-        );
-      },
-    },
-    {
-      title: "Giá",
-      dataIndex: "price",
-      key: "price",
-      align: "right",
-      width: "80px",
-    },
-    {
-      title: "Mô tả",
+      title: "Tiểu sử",
       dataIndex: "description",
       key: "description",
       ellipsis: true,
@@ -112,7 +76,6 @@ export default function Book() {
   ];
   const onSuccess = (res: any) => {
     setLoading(false);
-    console.log("res", res);
     const dataSrc = res.data?.data
       .reverse()
       .map((data: any, index: number) => ({
@@ -120,7 +83,9 @@ export default function Book() {
         key: data.id,
         ...data,
       }));
-    dispatch(setDataBook(dataSrc));
+    console.log(dataSrc);
+    setCount(res.data.count);
+    dispatch(setDataAuthor(dataSrc));
     NotificationCustom({
       type: "success",
       message: "Thành công",
@@ -137,7 +102,7 @@ export default function Book() {
   };
   const getData = () => {
     setLoading(true);
-    BookAPI.getAllBooks(`${userInfo.accessToken}`)
+    AuthorAPI.getAllAuthors(`${userInfo.accessToken}`)
       .then((res) => {
         onSuccess(res);
       })

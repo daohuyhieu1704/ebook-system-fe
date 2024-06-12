@@ -4,6 +4,8 @@ import layoutReducer from "../features/layout/layoutSlice";
 import NotificationReducer from "../features/Notification/NotificationSlice";
 import EmployeeManagerReducer from "../features/EmployeeManager/EmployeeManagerSlice";
 import BookReducer from "../features/Book/BookSlice";
+import CategoryReducer from "../features/Category/CategorySlice";
+import AuthorReducer from "../features/Author/AuthorSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ export const store = configureStore({
     notification: NotificationReducer,
     book: BookReducer,
     emp: EmployeeManagerReducer,
+    category: CategoryReducer,
+    author: AuthorReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

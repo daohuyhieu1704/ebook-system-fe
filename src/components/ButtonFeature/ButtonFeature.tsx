@@ -15,6 +15,7 @@ import { Button, Modal } from "antd";
 import { Col, Row } from "antd";
 import { selectUserInfo } from "../../features/login/loginSlice";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { selectSearchCate } from "../../features/Category/CategorySlice";
 
 const { confirm } = Modal;
 
@@ -28,8 +29,9 @@ export default function ButtonFeature({
   const dispatch = useAppDispatch();
   const selectedRows = useAppSelector(selectSelectedRows);
   const userInfo = useAppSelector(selectUserInfo);
+  const searchCate = useAppSelector(selectSearchCate);
   const [loadingQuesItem, setLoadingQuesItem] = useState(false);
-  const cannotUpdate: string[] = [PATH.BOOK];
+  const cannotUpdate: string[] = [PATH.CATEGORY_DETAIL];
   const disableMoreInfo: string[] = [];
 
   const hideSuccess = () => {
@@ -134,7 +136,9 @@ export default function ButtonFeature({
               onChange={(value) => changeStatusQuesHandler(value, item)}
             />
         </Col> : <></>} */}
-      {cannotUpdate.includes(path) || onlyDetail ? (
+      {cannotUpdate.includes(path) ||
+      onlyDetail ||
+      (searchCate !== "" && path.includes(searchCate)) ? (
         <></>
       ) : (
         <Col>

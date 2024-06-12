@@ -1,11 +1,11 @@
-import { Button, Row, Tag, Typography } from "antd";
+import { Button, Card, Row, Tag, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { BookAPI } from "../../api/BookAPI";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
-import TableLayout from "../../components/TableLayout/TableLayout";
-import { theme } from "../../theme/theme";
+import { BookAPI } from "../../../api/BookAPI";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { NotificationCustom } from "../../../components/NotificationCustom/NotificationCustom";
+import TableLayout from "../../../components/TableLayout/TableLayout";
+import { theme } from "../../../theme/theme";
 import {
   openDrawerBottom,
   selectIsRefetch,
@@ -13,13 +13,14 @@ import {
   selectSelectedKey,
   setIsRefetch,
   setSelectedRows,
-} from "../layout/layoutSlice";
-import { selectDataBook, setDataBook } from "./BookSlice";
-import { selectUserInfo } from "../login/loginSlice";
-import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";
-import { ROLE, rolePair } from "../../constants/common";
+} from "../../layout/layoutSlice";
+import { selectDataBook, setDataBook } from "../../Book/BookSlice";
+import { selectUserInfo } from "../../login/loginSlice";
+import ButtonFeature from "../../../components/ButtonFeature/ButtonFeature";
+import { ROLE } from "../../../constants/common";
+import { selectSearchCate } from "../CategorySlice";
 
-export default function Book() {
+export default function CategoryDetail() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,6 +33,7 @@ export default function Book() {
   const userInfo = useAppSelector(selectUserInfo);
   const selectedTab = useAppSelector(selectSelectedKey);
   const isRefetch = useAppSelector(selectIsRefetch);
+  const searchCate = useAppSelector(selectSearchCate);
   function changeHandler(item: any) {
     setVisible(true);
     dispatch(openDrawerBottom());
@@ -57,21 +59,6 @@ export default function Book() {
       dataIndex: "Author",
       key: "Author",
       width: "200px",
-      render: (value: any, item: any) => {
-        return (
-          <Row justify="space-between">
-            <Typography.Text ellipsis={true} style={{ width: "100px" }}>
-              {value.name}
-            </Typography.Text>
-          </Row>
-        );
-      },
-    },
-    {
-      title: "Thể loại",
-      dataIndex: "Category",
-      key: "Category",
-      width: "150px",
       render: (value: any, item: any) => {
         return (
           <Row justify="space-between">
@@ -115,6 +102,7 @@ export default function Book() {
     console.log("res", res);
     const dataSrc = res.data?.data
       .reverse()
+      .filter((item: any) => item.Category?.id === searchCate)
       .map((data: any, index: number) => ({
         STT: index + 1,
         key: data.id,
@@ -136,14 +124,20 @@ export default function Book() {
     });
   };
   const getData = () => {
+    console.log("userInfo", userInfo);
+    if (!userInfo) return;
     setLoading(true);
-    BookAPI.getAllBooks(`${userInfo.accessToken}`)
-      .then((res) => {
-        onSuccess(res);
-      })
-      .catch((err) => {
-        onError(err);
-      });
+    const role = userInfo.role === "1" ? ROLE.admin : ROLE.shop;
+    if (role === ROLE.admin) {
+      BookAPI.getAllBooks(`${userInfo.accessToken}`)
+        .then((res) => {
+          onSuccess(res);
+        })
+        .catch((err) => {
+          onError(err);
+        });
+    } else {
+    }
   };
   useEffect(() => {
     getData();
@@ -157,6 +151,18 @@ export default function Book() {
   }, [isRefetch]);
   return (
     <>
+      {data && data[0] && (
+        <Card
+          hoverable
+          key={data[0].Category.id}
+          style={{ marginBottom: "1rem" }}
+        >
+          <Typography.Title level={5}>
+            {data[0].Category?.name}
+          </Typography.Title>
+          {data[0].Category?.description}
+        </Card>
+      )}
       <TableLayout
         checkbox={false}
         bordered={true}

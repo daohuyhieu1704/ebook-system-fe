@@ -45,6 +45,10 @@ import SearchFilter from "./components/SearchFilter";
 import CRUDButtonList from "./components/CRUDButtonList";
 import BookDetail from "../Book/BookDetail";
 import EmployeeManagerForm from "../EmployeeManager/EmployeeManagerForm";
+import CategoryForm from "../Category/CategoryForm";
+import AuthorDetail from "../Author/AuthorDetail";
+import BookForm from "../Book/BookForm";
+import AuthorForm from "../Author/AuthorForm";
 const { confirm } = Modal;
 const { Text, Title } = Typography;
 
@@ -85,6 +89,16 @@ export const LayoutHeader = () => {
       cpnRender: <BookDetail />,
       cpnName: "Book",
     },
+    [PATH.CATEGORY_DETAIL]: {
+      detailTitle: "Chi tiết sách",
+      cpnRender: <BookDetail />,
+      cpnName: "CateDetail",
+    },
+    [PATH.AUTHOR]: {
+      detailTitle: "Chi tiết tác giả",
+      cpnRender: <AuthorDetail />,
+      cpnName: "Author",
+    },
   };
 
   const forms: FormsType = {
@@ -92,6 +106,21 @@ export const LayoutHeader = () => {
       formTitle: !isUpdateForm ? "Tạo nhân viên" : "Sửa nhân viên",
       formRender: <EmployeeManagerForm formName={"Employees"} />,
       formName: "Employees",
+    },
+    [PATH.CATEGORY]: {
+      formTitle: !isUpdateForm ? "Tạo thể loại" : "Sửa thể loại",
+      formRender: <CategoryForm formName={"Category"} />,
+      formName: "Category",
+    },
+    [PATH.AUTHOR]: {
+      formTitle: !isUpdateForm ? "Tạo tác giả" : "Sửa tác giả",
+      formRender: <AuthorForm formName={"Author"} />,
+      formName: "Author",
+    },
+    [PATH.BOOK]: {
+      formTitle: !isUpdateForm ? "Tạo sách" : "Sửa sách",
+      formRender: <BookForm formName={"Book"} />,
+      formName: "Book",
     },
   };
 
@@ -131,7 +160,7 @@ export const LayoutHeader = () => {
   useEffect(() => {
     const loc = `${location?.pathname}`.split("/");
     if (loc.length >= 3) {
-      setFormTitle(`/${loc[1]}/:id_phong`);
+      setFormTitle(`/${loc[1]}/:id_category`);
     } else {
       setFormTitle(location?.pathname);
     }

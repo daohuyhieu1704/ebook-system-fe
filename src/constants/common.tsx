@@ -1,11 +1,14 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { TeamOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import path from "path";
 
 export const PATH = Object.freeze({
   LOGIN: "/login",
   HOME: "/",
   BOOK: "/book",
   CATEGORY: "/category",
+  AUTHOR: "/author",
+  CATEGORY_DETAIL: "/category/:id_category",
   PROFILE: "/profile",
   EMPLOYEES: "/employees",
   NOT_FOUND: "*",
@@ -26,6 +29,16 @@ export const ROUTES = Object.freeze({
     {
       path: PATH.CATEGORY,
       element: "CategoryPage",
+      permission: [ROLE.admin],
+    },
+    {
+      path: PATH.AUTHOR,
+      element: "AuthorPage",
+      permission: [ROLE.admin],
+    },
+    {
+      path: PATH.CATEGORY_DETAIL,
+      element: "CategoryDetailPage",
       permission: [ROLE.admin],
     },
     {
@@ -72,6 +85,20 @@ export const MANAGEMENT_MENU = [
     children: null,
   },
   {
+    path: PATH.AUTHOR,
+    name: "Tác giả",
+    permissions: [ROLE.admin],
+    icon: <TeamOutlined />,
+    filter: [
+      {
+        key: 0,
+        label: "Tên",
+        type: SearchType.input,
+      },
+    ],
+    children: null,
+  },
+  {
     path: PATH.BOOK,
     name: "Sách",
     permissions: [ROLE.admin],
@@ -79,13 +106,18 @@ export const MANAGEMENT_MENU = [
     filter: [
       {
         key: 0,
-        label: "Câu hỏi",
+        label: "Tên",
         type: SearchType.input,
       },
       {
         key: 1,
-        label: "Câu trả lời",
-        type: SearchType.select,
+        label: "Tác giả",
+        type: SearchType.input,
+      },
+      {
+        key: 2,
+        label: "Thể loại",
+        type: SearchType.input,
       },
     ],
     children: null,
@@ -125,7 +157,12 @@ export const LOCAL_STORAGE_ITEM = Object.freeze({
   ROLE: "role",
 });
 
-export const hasHeaderBtn = [PATH.EMPLOYEES];
+export const hasHeaderBtn = [
+  PATH.EMPLOYEES,
+  PATH.BOOK,
+  PATH.CATEGORY,
+  PATH.AUTHOR,
+];
 export const notHasSearchFilter = [PATH.PROFILE];
 
 export const hasModeView = [PATH.BOOK];
