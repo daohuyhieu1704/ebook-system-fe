@@ -1,13 +1,11 @@
 import axios from "axios";
 import axiosClient from "../helper/axios/axiosClient";
+import { axiosPost } from "../helper/axios";
 
 export const AuthenAPI = {
-  LogIn(data: { email: string; password: string }, token: string) {
+  LogIn(data: { email: string; password: string }) {
     const url = `${process.env.REACT_APP_ENDPOINT}v1/api/authen/shop/login`;
-    const headers = {
-      authorization: `Bearer ${token}`,
-    };
-    return axiosClient.post(url, data, { headers });
+    return axiosPost(url, data);
   },
   RefreshToken(data: { refreshToken: string }, token: string) {
     const url = `${process.env.REACT_APP_ENDPOINT}v1/api/authen/shop/refresh-token`;

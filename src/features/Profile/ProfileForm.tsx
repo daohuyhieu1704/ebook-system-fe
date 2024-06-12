@@ -5,7 +5,6 @@ import { selectUserInfo } from "../login/loginSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CloseOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
 import { ChuyenVienAPI } from "../../api/EmailAPI";
-import { selectDataEmp } from "../EmployeeManager/EmployeeManagerSlice";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import {
   selectIsRefetch,
@@ -21,7 +20,8 @@ export default function ProfileForm() {
   const userInfo = useAppSelector(selectUserInfo);
   const [dataSrc, setDataSrc] = useState<any>();
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const data = useAppSelector(selectDataEmp);
+  // const data = useAppSelector(selectDataEmp);
+  const data: any[] = [];
   const isRefetch = useAppSelector(selectIsRefetch);
   const selectedTab = useAppSelector(selectSelectedKey);
   const inputRef = useRef(null);
@@ -30,37 +30,7 @@ export default function ProfileForm() {
     { key: "0", label: "Thông tin" },
     { key: "1", label: "Đổi mật khẩu" },
   ];
-  const getData = () => {
-    if (data.length > 0) {
-      setDataSrc(data.find((item) => item.username === userInfo.username));
-      form.setFieldsValue({
-        username: dataSrc?.username,
-        hoten: dataSrc?.hoten,
-        role: dataSrc?.role,
-        sdt: dataSrc?.sdt,
-        mota: dataSrc?.mota,
-      });
-    } else {
-      ChuyenVienAPI.getAll(`${userInfo.accessToken}`)
-        .then((res) => {
-          setDataSrc(
-            res?.data?.data?.find(
-              (item: any) => item.username === userInfo.username
-            )
-          );
-
-          console.log(dataSrc);
-          form.setFieldsValue({
-            username: dataSrc?.username,
-            hoten: dataSrc?.hoten,
-            role: dataSrc?.role,
-            sdt: dataSrc?.sdt,
-            mota: dataSrc?.mota,
-          });
-        })
-        .catch(() => {});
-    }
-  };
+  const getData = () => {};
   const onClick: MenuProps["onClick"] = (e) => {
     setSelectedKeyMode(e.key);
   };

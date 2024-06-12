@@ -15,16 +15,6 @@ export default function ViewMode({ path }: { path: string }) {
   const dispatch = useAppDispatch();
   const filter = useAppSelector(selectStatusFilter);
   const mode = useAppSelector(selectMode);
-  const ViewModeList: any = {
-    [PATH.COMPLAINT]: {
-      full: 0,
-      unAns: 1,
-      ans: 2,
-    },
-  };
-  const ViewModeOpt: any = {
-    [PATH.COMPLAINT]: ["Tất cả", "Chưa phản hồi", "Đã phản hồi"],
-  };
   useEffect(() => {
     console.log("filter", mode);
   }, [mode]);

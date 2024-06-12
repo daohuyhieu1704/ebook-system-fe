@@ -1,13 +1,11 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { Suspense, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DashboardAPI } from './api/DashboardAPI';
-import { AdminPrivateRoutes, PublicRoutes } from './configs/Router';
-import { PATH } from './constants/common';
-import { AppLayout } from './features/layout/Layout';
-import { useLogout } from './hooks/useLogout';
-import NotFoundPage from './pages/NotFoundPage';
-import { theme } from './theme/theme';
+import { LoadingOutlined } from "@ant-design/icons";
+import { Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AdminPrivateRoutes, PublicRoutes } from "./configs/Router";
+import { PATH } from "./constants/common";
+import { AppLayout } from "./features/layout/Layout";
+import NotFoundPage from "./pages/NotFoundPage";
+import { theme } from "./theme/theme";
 
 function App() {
   return (
@@ -17,14 +15,14 @@ function App() {
           <AppLayout>
             <div
               style={{
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <LoadingOutlined
-                style={{ fontSize: '4rem', color: theme.colors.primary }}
+                style={{ fontSize: "4rem", color: theme.colors.primary }}
               />
             </div>
           </AppLayout>

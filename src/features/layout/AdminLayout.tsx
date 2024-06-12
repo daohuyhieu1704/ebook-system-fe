@@ -41,9 +41,6 @@ import {
 } from "./layoutSlice";
 
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
-//import { selectTotalQ, setTotalQ } from '../QuestionFeedback/QuestionFeedbackSlice';
-import { petitionAPI } from "../../api/PetitionAPI";
-import { DashboardAPI } from "../../api/DashboardAPI";
 import colors from "../../theme/colors";
 
 const { confirm } = Modal;
@@ -137,36 +134,36 @@ export const AdminLayout = ({ children }: { children: JSX.Element }) => {
           return getItem(
             item.name,
             item.name,
-            item.icon,
-            item.children.map((item) =>
-              getItem(
-                <>
-                  <Link to={item.path}></Link>
-                  <Link to={item.path}>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "98%",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      {`${item.name}`}
-                      {/* {
-                      totalVal[`${item.path}`] > 0 ?
-                        <Badge size="small" count={totalVal[`${item.path}`]} offset={[-6, 0]}></Badge>
-                        :
-                        <></>
-                    } */}
-                    </div>
-                  </Link>
-                </>,
-                item.path,
-                item.icon
-              )
-            ),
-            "group"
+            item.icon
+            // item.children.map((item) =>
+            //   getItem(
+            //     <>
+            //       <Link to={item.path}></Link>
+            //       <Link to={item.path}>
+            //         <div
+            //           style={{
+            //             display: "flex",
+            //             flexDirection: "row",
+            //             width: "98%",
+            //             justifyContent: "space-between",
+            //             alignItems: "center",
+            //           }}
+            //         >
+            //           {`${item.name}`}
+            //           {/* {
+            //           totalVal[`${item.path}`] > 0 ?
+            //             <Badge size="small" count={totalVal[`${item.path}`]} offset={[-6, 0]}></Badge>
+            //             :
+            //             <></>
+            //         } */}
+            //         </div>
+            //       </Link>
+            //     </>,
+            //     item.path,
+            //     item.icon
+            //   )
+            // ),
+            // "group"
           );
         }
       }),
@@ -211,8 +208,8 @@ export const AdminLayout = ({ children }: { children: JSX.Element }) => {
                   justifyContent: "center",
                 }}
               >
-                <LogoText>PTIT KTX</LogoText>
-                <LogoPara>Phòng cơ sở vật chất</LogoPara>
+                <LogoText>EBook</LogoText>
+                <LogoPara>Admin</LogoPara>
               </div>
             </LogoWrapper>
           )}

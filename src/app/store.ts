@@ -2,10 +2,6 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import loginReducer from "../features/login/loginSlice";
 import layoutReducer from "../features/layout/layoutSlice";
 import NotificationReducer from "../features/Notification/NotificationSlice";
-import ComplaintReducer from "../features/Complaint/ComplaintSlice";
-import FaqsReducer from "../features/Faqs/FaqsSlice";
-import RoomReducer from "../features/Room/RoomSlice";
-import EmployeeManagerReducer from "../features/EmployeeManager/EmployeeManagerSlice";
 import BookReducer from "../features/Book/BookSlice";
 
 export const store = configureStore({
@@ -13,11 +9,7 @@ export const store = configureStore({
     login: loginReducer,
     layout: layoutReducer,
     notification: NotificationReducer,
-    complaint: ComplaintReducer,
-    faqs: FaqsReducer,
     book: BookReducer,
-    room: RoomReducer,
-    emp: EmployeeManagerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

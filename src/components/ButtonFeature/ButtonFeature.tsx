@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useLocation } from "react-router-dom";
 import {
@@ -8,20 +8,13 @@ import {
   setIsUpdateForm,
   setSelectedRows,
 } from "../../features/layout/layoutSlice";
-import { selectDataEmp } from "../../features/EmployeeManager/EmployeeManagerSlice";
 import { NotificationCustom } from "../NotificationCustom/NotificationCustom";
 import { PATH } from "../../constants/common";
-import { ChuyenVienAPI } from "../../api/EmailAPI";
 import { notificationAPI } from "../../api/OrderAPI";
-import { Button, Grid, Modal, Switch } from "antd";
-import { Col, Divider, Row } from "antd";
+import { Button, Modal } from "antd";
+import { Col, Row } from "antd";
 import { selectUserInfo } from "../../features/login/loginSlice";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  EyeInvisibleOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
 
 const { confirm } = Modal;
 
@@ -36,8 +29,8 @@ export default function ButtonFeature({
   const selectedRows = useAppSelector(selectSelectedRows);
   const userInfo = useAppSelector(selectUserInfo);
   const [loadingQuesItem, setLoadingQuesItem] = useState(false);
-  const cannotUpdate: string[] = [PATH.STUDENTS, PATH.BOOKING];
-  const disableMoreInfo: string[] = [PATH.DM_CSVC];
+  const cannotUpdate: string[] = [PATH.BOOK];
+  const disableMoreInfo: string[] = [];
 
   const hideSuccess = () => {
     dispatch(setSelectedRows([]));

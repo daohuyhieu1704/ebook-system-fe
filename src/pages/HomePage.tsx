@@ -8,11 +8,12 @@ const HomePage = () => {
   const userInfo = useAppSelector(selectUserInfo);
 
   useEffect(() => {
+    console.log("navigate to notification", userInfo?.role);
     switch (userInfo?.role) {
-      case 0:
-        navigate(PATH.EMPLOYEES);
+      case "0":
+        navigate(PATH.BOOK);
         break;
-      case 1:
+      case "1":
         navigate(PATH.NOTIFICATION);
         break;
     }

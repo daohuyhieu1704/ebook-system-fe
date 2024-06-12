@@ -35,18 +35,6 @@ export default function ChangePWForm() {
   };
   const onFinish = (values: any) => {
     console.log("Success:", values);
-    ChuyenVienAPI.changePW(
-      values.username,
-      values.old_password,
-      values.new_password,
-      `${userInfo.accessToken}`
-    )
-      .then((res) => {
-        onSubmitSuccess(res);
-      })
-      .catch((err) => {
-        onSubmitError(err);
-      });
   };
 
   return (

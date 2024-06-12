@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import { LOCAL_STORAGE_ITEM } from '../../constants/common';
+import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
+import { LOCAL_STORAGE_ITEM } from "../../constants/common";
 
 export interface CliToSerLogin {
   login: (role: string) => void;
@@ -20,7 +20,7 @@ export interface empChangeInterface {
   hoten: string;
   sdt: string;
   mota: string;
-  role: number;
+  role: string;
   deleted: 0 | 1;
 }
 
@@ -36,8 +36,9 @@ export interface UserInfo {
   username?: string;
   fullname?: string;
   accessToken?: string;
+  refreshToken?: string;
   remember?: boolean;
-  role?: number;
+  role?: string;
 }
 
 export interface LoginState {
@@ -52,18 +53,18 @@ const initialState: LoginState = {
     !!localStorage.getItem(LOCAL_STORAGE_ITEM.ACCESS_TOKEN) ||
     !!sessionStorage.getItem(LOCAL_STORAGE_ITEM.ACCESS_TOKEN),
   userInfo:
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM.USER_INFO) || '{}') ||
-    JSON.parse(sessionStorage.getItem(LOCAL_STORAGE_ITEM.USER_INFO) || '{}') ||
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM.USER_INFO) || "{}") ||
+    JSON.parse(sessionStorage.getItem(LOCAL_STORAGE_ITEM.USER_INFO) || "{}") ||
     {},
   role:
     localStorage.getItem(LOCAL_STORAGE_ITEM.ROLE) ||
     sessionStorage.getItem(LOCAL_STORAGE_ITEM.ROLE) ||
-    '',
+    "",
   isLoggedOut: false,
 };
 
 export const loginSlice = createSlice({
-  name: 'login',
+  name: "login",
   initialState,
   reducers: {
     loginSuccess: (state, action) => {
@@ -79,7 +80,11 @@ export const loginSlice = createSlice({
         localStorage.setItem(LOCAL_STORAGE_ITEM.ROLE, action.payload.role);
         localStorage.setItem(
           LOCAL_STORAGE_ITEM.ACCESS_TOKEN,
-          action.payload.accessToken || ''
+          action.payload.accessToken || ""
+        );
+        localStorage.setItem(
+          LOCAL_STORAGE_ITEM.REFRESH_TOKEN,
+          action.payload.refreshToken || ""
         );
       } else {
         sessionStorage.setItem(
@@ -89,20 +94,26 @@ export const loginSlice = createSlice({
         sessionStorage.setItem(LOCAL_STORAGE_ITEM.ROLE, action.payload.role);
         sessionStorage.setItem(
           LOCAL_STORAGE_ITEM.ACCESS_TOKEN,
-          action.payload.accessToken || ''
+          action.payload.accessToken || ""
+        );
+        sessionStorage.setItem(
+          LOCAL_STORAGE_ITEM.REFRESH_TOKEN,
+          action.payload.refreshToken || ""
         );
       }
     },
     logout: (state) => {
       state.isLoggedIn = false;
       state.userInfo = {};
-      state.role = '';
+      state.role = "";
       localStorage.removeItem(LOCAL_STORAGE_ITEM.USER_INFO);
       localStorage.removeItem(LOCAL_STORAGE_ITEM.ACCESS_TOKEN);
+      localStorage.removeItem(LOCAL_STORAGE_ITEM.REFRESH_TOKEN);
       localStorage.removeItem(LOCAL_STORAGE_ITEM.ROLE);
       sessionStorage.removeItem(LOCAL_STORAGE_ITEM.ROLE);
       sessionStorage.removeItem(LOCAL_STORAGE_ITEM.USER_INFO);
       sessionStorage.removeItem(LOCAL_STORAGE_ITEM.ACCESS_TOKEN);
+      sessionStorage.removeItem(LOCAL_STORAGE_ITEM.REFRESH_TOKEN);
     },
     setUserInfo_safe: (state, action) => {
       state.userInfo = action.payload;
@@ -113,7 +124,8 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { loginSuccess, setUserInfo_safe, logout, setIsLoggedOut } = loginSlice.actions;
+export const { loginSuccess, setUserInfo_safe, logout, setIsLoggedOut } =
+  loginSlice.actions;
 
 export const selectUserInfo = (state: RootState) => state.login.userInfo;
 export const selectRole = (state: RootState) => state.login.role;

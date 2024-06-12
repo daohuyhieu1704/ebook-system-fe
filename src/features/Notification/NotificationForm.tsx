@@ -59,14 +59,6 @@ import { TweenOneGroup } from "rc-tween-one";
 import { overflow } from "styled-system";
 import { CustomTagSelect, DatePickerContainer } from "./Notification.style";
 import moment from "moment";
-import {
-  selectDataStu,
-  setDataStu,
-} from "../StudentsManager/StudentsManagerSlice";
-import { SinhVienAPI } from "../../api/SinhVienAPI";
-import { debounce } from "../../helper/commonFunc";
-import { DashboardAPI } from "../../api/DashboardAPI";
-import { selectDataKhoa, setDataKhoa } from "../dashboard/DashboardSlice";
 type FormProps = {
   formName: string;
 };

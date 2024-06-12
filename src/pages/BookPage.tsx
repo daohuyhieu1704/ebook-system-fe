@@ -1,7 +1,7 @@
 import Book from "../features/Book/Book";
 
-const AccountantPage = () => {
+const BookPage = () => {
   return <Book />;
 };
 
-export default AccountantPage;
+export default BookPage;

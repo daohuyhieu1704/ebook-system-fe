@@ -20,7 +20,6 @@ import {
 import {
   Avatar,
   Button,
-  DatePickerProps,
   Drawer,
   Dropdown,
   Menu,
@@ -39,17 +38,11 @@ import {
   selectIsUpdateForm,
   toggleSidebar,
 } from "./layoutSlice";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../constants/common";
 import NotificationForm from "../Notification/NotificationForm";
-import FaqsForm from "../Faqs/FaqsForm";
-import moment from "moment";
 import SearchFilter from "./components/SearchFilter";
 import CRUDButtonList from "./components/CRUDButtonList";
-import EmployeeManagerForm from "../EmployeeManager/EmployeeManagerForm";
-import BookForm from "../Book/BookForm";
-import RoomForm from "../Room/RoomForm";
-import RoomDetail from "../Room/RoomDetail";
 import BookingDetail from "../Book/BookDetail";
 const { confirm } = Modal;
 const { Text, Title } = Typography;
@@ -86,11 +79,6 @@ export const LayoutHeader = () => {
   const [formTitle, setFormTitle] = useState<string>(location?.pathname);
 
   const details: DetailType = {
-    [PATH.ROOM]: {
-      detailTitle: "Chi tiết phòng",
-      cpnRender: <RoomDetail />,
-      cpnName: "Rooms",
-    },
     [PATH.BOOK]: {
       detailTitle: "Chi tiết lịch đặt phòng",
       cpnRender: <BookingDetail />,
@@ -103,21 +91,6 @@ export const LayoutHeader = () => {
       formTitle: !isUpdateForm ? "Tạo thông báo" : "Cập nhật thông báo",
       formRender: <NotificationForm formName={"Thông báo"} />,
       formName: "Thông báo",
-    },
-    [PATH.FAQS]: {
-      formTitle: !isUpdateForm ? "Tạo câu hỏi" : "Sửa câu hỏi",
-      formRender: <FaqsForm formName={"Faqs"} />,
-      formName: "Faqs",
-    },
-    [PATH.EMPLOYEES]: {
-      formTitle: !isUpdateForm ? "Tạo nhân viên" : "Sửa nhân viên",
-      formRender: <EmployeeManagerForm formName={"Employees"} />,
-      formName: "Employees",
-    },
-    [PATH.ROOM]: {
-      formTitle: !isUpdateForm ? "Tạo phòng" : "Sửa phòng",
-      formRender: <RoomForm formName={"Room"} />,
-      formName: "Room",
     },
   };
 
