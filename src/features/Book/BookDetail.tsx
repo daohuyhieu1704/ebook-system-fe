@@ -14,13 +14,53 @@ import { useNavigate } from "react-router-dom";
 import { FAIL_IMG } from "../../constants/common";
 import { theme } from "../../theme/theme";
 import { useDispatch } from "react-redux";
+import TableLayout from "../../components/TableLayout/TableLayout";
+import { selectDataFeedback, setDataFeedback } from "./BookSlice";
+import { FeedbackAPI } from "../../api/FeedbackAPI";
 
 export default function BookDetail() {
   const dispatch = useDispatch();
   const selectedRows = useAppSelector(selectSelectedRows);
+  const dataFeedback = useAppSelector(selectDataFeedback);
+  const userInfo = useAppSelector(selectUserInfo);
   useEffect(() => {
-    console.log(selectedRows[0]);
+    if (selectedRows[0]) {
+      FeedbackAPI.getAllFeedbacks(selectedRows[0].id, `${userInfo.accessToken}`)
+        .then((res) => {
+          console.log(res);
+          dispatch(setDataFeedback(res.data.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [selectedRows]);
+
+  const FeedbackColumns: object[] = [
+    {
+      key: "STT",
+      title: "STT",
+      dataIndex: "STT",
+      width: theme.checkBoxWidth,
+      align: "right",
+    },
+    {
+      title: "Star",
+      key: "start",
+      dataIndex: "hoten",
+      width: "200px",
+    },
+    {
+      title: "Comment",
+      key: "Comment",
+      dataIndex: "Comment",
+      width: "140px",
+      elipsis: true,
+      render: (data: string) => {
+        return <div>{data}</div>;
+      },
+    },
+  ];
   return (
     <Row justify="start" style={{ height: "100%" }}>
       <Col
@@ -114,6 +154,32 @@ export default function BookDetail() {
           </Col>
         </Row>
         <Divider style={{ width: "100%" }} />
+        <Row style={{ marginBottom: "1rem" }}>
+          <Col>
+            <Row
+              align="middle"
+              justify="space-between"
+              style={{ marginBottom: "1rem" }}
+            >
+              <Typography.Text strong>Phản hồi:</Typography.Text>
+            </Row>
+            <Row>
+              <TableLayout
+                checkbox={false}
+                columns={FeedbackColumns}
+                dataSource={dataFeedback}
+                loading={false}
+                total={5}
+                setOffset={5}
+                size="small"
+                // expandable={{
+                //   expandedRowRender: (record: any) => <VpDetail record={record}/>,
+                //   rowExpandable: (record: any) => record.name !== 'Not Expandable',
+                // }}
+              />
+            </Row>
+          </Col>
+        </Row>
       </Col>
     </Row>
   );

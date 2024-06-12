@@ -10,7 +10,6 @@ import {
 } from "../../features/layout/layoutSlice";
 import { NotificationCustom } from "../NotificationCustom/NotificationCustom";
 import { PATH } from "../../constants/common";
-import { notificationAPI } from "../../api/OrderAPI";
 import { Button, Modal } from "antd";
 import { Col, Row } from "antd";
 import { selectUserInfo } from "../../features/login/loginSlice";

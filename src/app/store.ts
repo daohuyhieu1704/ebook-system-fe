@@ -1,7 +1,6 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import loginReducer from "../features/login/loginSlice";
 import layoutReducer from "../features/layout/layoutSlice";
-import NotificationReducer from "../features/Notification/NotificationSlice";
 import EmployeeManagerReducer from "../features/EmployeeManager/EmployeeManagerSlice";
 import BookReducer from "../features/Book/BookSlice";
 import CategoryReducer from "../features/Category/CategorySlice";
@@ -11,7 +10,6 @@ export const store = configureStore({
   reducer: {
     login: loginReducer,
     layout: layoutReducer,
-    notification: NotificationReducer,
     book: BookReducer,
     emp: EmployeeManagerReducer,
     category: CategoryReducer,
