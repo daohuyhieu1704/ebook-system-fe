@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import "antd/dist/antd.less";
+import { createGlobalStyle } from 'styled-components';
+import 'antd/dist/antd.less';
 
 export const GlobalStyle = createGlobalStyle`
   * {

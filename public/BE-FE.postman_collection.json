@@ -1,0 +1,699 @@
+{
+	"item": [
+		{
+			"name": "Chuyên viên gửi thông báo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YzJlZmUyZjgzN2ZjYjlmYjRkOWIxZGRhZDZmZDAwMWJmNzdkOGY0ZDE1ZDI3MmM0NjdiZmVhNGMwNjA3ZjgxNg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "kind",
+							"value": "hc_D20CQPT01-N&D20CQCN01-N",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "tieude_hc",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "body",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/notifi/send_notifi",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"notifi",
+						"send_notifi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tạm ngưng tài khoản",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer accesstoken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/emp_inf/stop_emp",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"emp_inf",
+						"stop_emp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kích hoạt lại tài khoản",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer accesstoken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/emp_inf/turn_on_emp",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"emp_inf",
+						"turn_on_emp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Thay đổi thời gian phản hồi",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer accesstoken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code_kind\":\"\",\r\n    \"time_changed\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/form/change_response_time",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"form",
+						"change_response_time"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy toàn bộ lớp tín chỉ",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer accesstoken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/class_tc/get_all_class_tc",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"class_tc",
+						"get_all_class_tc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sửa câu hỏi thường gặp",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "code_faqs",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "quest",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "answer",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "deleted",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/faqs/upd_faqs",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"faqs",
+						"upd_faqs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kiểm tra mã lớp có tồn tại hay không",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YzJlZmUyZjgzN2ZjYjlmYjRkOWIxZGRhZDZmZDAwMWJmNzdkOGY0ZDE1ZDI3MmM0NjdiZmVhNGMwNjA3ZjgxNg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"class_kind\":\"hc\",\r\n    \"class_code\":\"D20CQPT01-N\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/notifi/check_exist_class",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"notifi",
+						"check_exist_class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ẩn thông báo",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YzJlZmUyZjgzN2ZjYjlmYjRkOWIxZGRhZDZmZDAwMWJmNzdkOGY0ZDE1ZDI3MmM0NjdiZmVhNGMwNjA3ZjgxNg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"matb\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/notifi/hide_notifi",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"notifi",
+						"hide_notifi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hiện lại thông báo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YzJlZmUyZjgzN2ZjYjlmYjRkOWIxZGRhZDZmZDAwMWJmNzdkOGY0ZDE1ZDI3MmM0NjdiZmVhNGMwNjA3ZjgxNg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"matb\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/notifi/turn_on_notifi",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"notifi",
+						"turn_on_notifi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trả lời yêu cầu",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YzJlZmUyZjgzN2ZjYjlmYjRkOWIxZGRhZDZmZDAwMWJmNzdkOGY0ZDE1ZDI3MmM0NjdiZmVhNGMwNjA3ZjgxNg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ma_yeu_cau\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/form/solved",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"form",
+						"solved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Xem công nợ",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/loans_inf/get_loans_inf",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"loans_inf",
+						"get_loans_inf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Thay đổi trạng thái biểu mẫu",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"form_code\":\"\",\r\n    \"note\":\"\",\r\n    \"status_code\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/form/change_state",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"form",
+						"change_state"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy toàn bộ biểu mẫu",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/form/get_all_form",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"form",
+						"get_all_form"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy link thư viện số",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/browe/get_all_browe",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"browe",
+						"get_all_browe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sửa thông tin thư viện số",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"link_target\":\"\",\r\n    \"link_change\":\"\",\r\n    \"name_change\":\"\",\r\n    \"description_change\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/browe/upd_browe",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"browe",
+						"upd_browe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Xóa thông tin thư viện số",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"link_target\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/browe/delete_browe",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"browe",
+						"delete_browe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Thêm thư viện số",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"link\":\"\",\r\n    \"name\":\"\",\r\n    \"description\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/browe/ins_browe",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"browe",
+						"ins_browe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy báo cáo csvc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImZvciI6ImVtcCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzIiwicm9sZSI6IjAifQ==.YWUwNDhkY2IyM2Y2YTFhMmVhMGU1ZjIzOWFjOTE0OWY4MWNjYTc2NDQyNmUyZDIwMTUzODllZmViYzM1NjY2Yg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://113.161.104.213:4000/emp_role/report/get_report_form",
+					"protocol": "http",
+					"host": [
+						"113",
+						"161",
+						"104",
+						"213"
+					],
+					"port": "4000",
+					"path": [
+						"emp_role",
+						"report",
+						"get_report_form"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
