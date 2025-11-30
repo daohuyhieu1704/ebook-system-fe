@@ -1,7 +1,7 @@
 import { Button, Form, Input } from "antd";
 import type { MenuProps } from "antd";
 import { useState, useEffect, useRef } from "react";
-import { selectUserInfo } from "../login/loginSlice";
+import { selectUserInfo } from "../Login/LoginSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CloseOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
 import { ChuyenVienAPI } from "../../api/EmailAPI";

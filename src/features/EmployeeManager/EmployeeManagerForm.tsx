@@ -13,7 +13,7 @@ import {
   setIsLoadingSubmit,
   setIsRefetch,
 } from "../layout/layoutSlice";
-import { selectUserInfo } from "../login/loginSlice";
+import { selectUserInfo } from "../Login/LoginSlice";
 import { selectDataEmp, setDataEmp } from "./EmployeeManagerSlice";
 import moment from "moment";
 import { UserAPI } from "../../api/UserAPI";

@@ -11,7 +11,7 @@ import {
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import { BookAPI } from "../../api/BookAPI";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectUserInfo } from "../login/loginSlice";
+import { selectUserInfo } from "../Login/LoginSlice";
 
 type FormProps = {
   formName: string;

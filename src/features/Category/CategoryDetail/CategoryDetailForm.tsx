@@ -21,7 +21,7 @@ import {
   setIsLoadingSubmit,
   setIsRefetch,
 } from "../../layout/layoutSlice";
-import { selectUserInfo } from "../../login/loginSlice";
+import { selectUserInfo } from "../../Login/LoginSlice";
 import { NotificationCustom } from "../../../components/NotificationCustom/NotificationCustom";
 import { current } from "@reduxjs/toolkit";
 import { useLocation } from "react-router-dom";

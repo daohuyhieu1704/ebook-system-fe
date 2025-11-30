@@ -9,7 +9,7 @@ import {
 import { ChuyenVienAPI } from "../../api/EmailAPI";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";
 import { setIsRefetch } from "../layout/layoutSlice";
-import { selectUserInfo, setIsLoggedOut } from "../login/loginSlice";
+import { selectUserInfo, setIsLoggedOut } from "../Login/LoginSlice";
 
 export default function ChangePWForm() {
   const dispatch = useAppDispatch();

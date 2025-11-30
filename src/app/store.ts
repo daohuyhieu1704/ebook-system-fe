@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import loginReducer from "../features/login/loginSlice";
+import loginReducer from "../features/Login/LoginSlice";
 import layoutReducer from "../features/layout/layoutSlice";
 import EmployeeManagerReducer from "../features/EmployeeManager/EmployeeManagerSlice";
 import BookReducer from "../features/Book/BookSlice";

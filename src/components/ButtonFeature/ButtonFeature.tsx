@@ -12,7 +12,7 @@ import { NotificationCustom } from "../NotificationCustom/NotificationCustom";
 import { PATH } from "../../constants/common";
 import { Button, Modal } from "antd";
 import { Col, Row } from "antd";
-import { selectUserInfo } from "../../features/login/loginSlice";
+import { selectUserInfo } from "../../features/Login/LoginSlice";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { selectSearchCate } from "../../features/Category/CategorySlice";
 

@@ -9,7 +9,7 @@ import {
 import { createElement, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { theme } from "../../theme/theme";
-import { selectIsLoggedIn, selectUserInfo } from "../login/loginSlice";
+import { selectIsLoggedIn, selectUserInfo } from "../Login/LoginSlice";
 import {
   CustomHeader,
   CustomMenuItemDropdown,

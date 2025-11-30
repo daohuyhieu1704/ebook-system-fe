@@ -19,7 +19,7 @@ import {
   selectIsLoggedIn,
   selectRole,
   selectUserInfo,
-} from "../login/loginSlice";
+} from "../Login/LoginSlice";
 import {
   CustomContent,
   CustomMenuItem,

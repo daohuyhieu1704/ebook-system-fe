@@ -15,7 +15,7 @@ import {
   setSelectedRows,
 } from "../layout/layoutSlice";
 import { selectDataAuthor, setDataAuthor } from "./AuthorSlice";
-import { selectUserInfo } from "../login/loginSlice";
+import { selectUserInfo } from "../Login/LoginSlice";
 import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";
 import { ROLE, rolePair } from "../../constants/common";
 import { AuthorAPI } from "../../api/AuthorAPI";

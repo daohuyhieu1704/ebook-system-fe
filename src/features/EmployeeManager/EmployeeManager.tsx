@@ -13,7 +13,7 @@ import {
   selectSelectedKey,
   setIsRefetch,
 } from "../layout/layoutSlice";
-import { selectUserInfo } from "../login/loginSlice";
+import { selectUserInfo } from "../Login/LoginSlice";
 import { selectDataEmp, setDataEmp } from "./EmployeeManagerSlice";
 import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";
 import { UserAPI } from "../../api/UserAPI";

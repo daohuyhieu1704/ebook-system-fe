@@ -21,7 +21,7 @@ import {
   setIsRefetch,
 } from "../layout/layoutSlice";
 import { CategoryAPI } from "../../api/CategoryAPI";
-import { selectUserInfo } from "../login/loginSlice";
+import { selectUserInfo } from "../Login/LoginSlice";
 import {
   selectCategoryData,
   setCategoryData,

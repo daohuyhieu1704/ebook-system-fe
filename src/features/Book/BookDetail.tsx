@@ -6,7 +6,7 @@ import {
   selectSelectedRows,
   setSelectedRows,
 } from "../layout/layoutSlice";
-import { selectUserInfo } from "../login/loginSlice";
+import { selectUserInfo } from "../Login/LoginSlice";
 import { Avatar, Col, Divider, Image, Row, Typography } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 import ButtonFeature from "../../components/ButtonFeature/ButtonFeature";

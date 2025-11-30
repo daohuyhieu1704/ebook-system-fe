@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { LoginFormTitle, LoginFormWrapper, LoginWrapper } from "./Login.style";
 import { useAppDispatch } from "../../app/hooks";
-import { loginSuccess, LoginType } from "./loginSlice";
+import { loginSuccess, LoginType } from "./LoginSlice";
 import { LOCAL_STORAGE_ITEM, PATH } from "../../constants/common";
 import { useState } from "react";
 import { NotificationCustom } from "../../components/NotificationCustom/NotificationCustom";

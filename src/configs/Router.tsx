@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { Navigate, Route, useLocation } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
 import { PATH, ROUTES } from "../constants/common";
-import { selectIsLoggedIn, selectRole } from "../features/login/loginSlice";
+import { selectIsLoggedIn, selectRole } from "../features/Login/LoginSlice";
 
 const RequireAuth = ({
   permission,
